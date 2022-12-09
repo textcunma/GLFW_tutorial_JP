@@ -29,8 +29,8 @@ const unsigned int width = 800;    // ウィンドウ幅
 const unsigned int height = 800;   // ウィンドウ高さ
 
 int main() {
-     // GLFW初期化
-	glfwInit();	
+	// GLFW初期化
+	glfwInit();
 
 	// OpenGL バージョン3.3指定
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -41,27 +41,27 @@ int main() {
 
 	// ウィンドウ生成
 	GLFWwindow* window = \
-          glfwCreateWindow(width, height, "GLFW Tutorial", NULL, NULL);
-	
+		glfwCreateWindow(width, height, "GLFW Tutorial", NULL, NULL);
+
 	if (!window) {
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
 		return -1;
 	}
 
-     // OpenGLが描画するウィンドウを指定
+	// OpenGLが描画するウィンドウを指定
 	glfwMakeContextCurrent(window);
 
 	// GLAD読み込み
 	gladLoadGL();
 
-     // ウィンドウ開始位置を指定
+	// ウィンドウ開始位置を指定
 	glViewport(0, 0, width, height);
 
 	// シェーダーファイル読み込み
-	Shader shaderProgram("./2_createTriangle/default.vert", 
-						 "./2_createTriangle/default.frag");
-	
+	Shader shaderProgram("./2_createTriangle/default.vert",
+		"./2_createTriangle/default.frag");
+
 	// VAOを作成, 有効化
 	VAO VAO1;
 	VAO1.Bind();
@@ -71,7 +71,7 @@ int main() {
 
 	// EBOを作成, 有効化, インデックスデータを設定
 	EBO EBO1(indices, sizeof(indices));
-	
+
 	// VBOを連携(頂点位置と頂点色)
 	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
 	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));

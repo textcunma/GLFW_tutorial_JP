@@ -4,15 +4,16 @@
 #include<glad/glad.h>
 
 class EBO {
-public:
-	GLuint ID;
-	EBO(GLuint* indices, GLsizeiptr size);
+	public:
+		// EBOのIDを格納する配列のポインタ
+		GLuint ID;
 
-	void Bind();
-	void Unbind();
-	void Delete();
+		// コンストラクタ
+		EBO(GLuint* indices, GLsizeiptr size);
 
+		void Bind();	// 有効化
+		void Unbind();	// 無効化
+		void Delete();	// 削除
 };
 
 #endif
-

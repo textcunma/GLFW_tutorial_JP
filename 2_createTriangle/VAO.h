@@ -5,17 +5,23 @@
 #include"VBO.h"
 
 class VAO {
-public:
-	// VAOのIDを格納する配列
-	GLuint ID;
+	public:
+		// VAOのIDを格納する配列のポインタ
+		GLuint ID;
 
-	// コンストラクタ
-	VAO();
+		// コンストラクタ
+		VAO();
 
-	void LinkVBO(VBO VBO, GLuint layout);	// VBOを連携
-	void Bind();						// 有効化
-	void Unbind();						// 無効化
-	void Delete();						// 削除
+		// VBOを連携
+		void LinkAttrib(VBO VBO, 
+						GLuint layout,			// location
+						GLuint numComponents,	// 要素数
+						GLenum type,			// データ型
+						GLsizeiptr stride,		// 属性間のバイトオフセット
+						void* offset);			// バッファの先頭のポインタ
+
+		void Bind();		// 有効化
+		void Unbind();		// 無効化
+		void Delete();		// 削除
 };
-
 #endif

@@ -12,15 +12,17 @@
 std::string get_file_contents(const char* filename);
 
 class Shader{
-public:
-	// シェーダープログラムの識別ID
-	GLuint ID;
+	public:
+		// シェーダープログラムの識別ID
+		GLuint ID;
 
-	// コンストラクタ
-	Shader(const char* vertexFile, const char* fragmentFile);
+		// コンストラクタ
+		Shader(const char* vertexFile, const char* fragmentFile);
 
-	void Activate();	// 有効化
-	void Delete();		// 無効化
+		void Activate();	// 有効化
+		void Delete();		// 無効化
+		
+	private:
+		void compileErrors(unsigned int shader, const char* type);
 };
-
 #endif

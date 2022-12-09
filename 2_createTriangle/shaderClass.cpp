@@ -32,11 +32,13 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile) {
 	// シェーダーオブジェクトにソースコードを設定
 	glShaderSource(vertexShader, 1, &vertexSource, NULL);
 	glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
-
+	
 	// ソースコードをコンパイル
 	glCompileShader(vertexShader);
 	glCompileShader(fragmentShader);
-
+	compileErrors(vertexShader, "VERTEX");
+	compileErrors(fragmentShader, "FRAGMENT");
+	
 	// 空のプログラムオブジェクトを作成
 	ID = glCreateProgram();
 
@@ -46,6 +48,7 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile) {
 
 	// プログラムオブジェクトをリンク(実行可能な状態にする)
 	glLinkProgram(ID);
+	compileErrors(ID, "PROGRAM");
 
 	// 不要になったシェーダーを削除
 	glDeleteShader(vertexShader);
@@ -60,4 +63,24 @@ void Shader::Activate() {
 // シェーダープログラムを削除
 void Shader::Delete() {
 	glDeleteProgram(ID);
+}
+
+// コンパイルエラー検出
+void Shader::compileErrors(unsigned int shader, const char* type) {
+	GLint hasCompiled;
+	char infoLog[1024];
+	if (type != "PROGRAM") {
+		glGetShaderiv(shader, GL_COMPILE_STATUS, &hasCompiled);
+		if (hasCompiled == GL_FALSE) {
+			glGetShaderInfoLog(shader, 1024, NULL, infoLog);
+			std::cout << "SHADER_COMPLATTION_ERROR for:" << type << "\n" << std::endl;
+		}
+		else {
+			glGetProgramiv(shader, GL_COMPILE_STATUS, &hasCompiled);
+			if (hasCompiled == GL_FALSE) {
+				glGetProgramInfoLog(shader, 1024, NULL, infoLog);
+				std::cout << "SHADER_LINKING_ERROR for:" << type << "\n" << std::endl;
+			}
+		}
+	}
 }

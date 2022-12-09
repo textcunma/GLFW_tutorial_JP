@@ -20,11 +20,18 @@ OpenGLは3DCGを描画するための命令や処理を提供しない。命令�
 
 - 頂点シェーダーファイル(default.vert)
      ```glsl
-     #version 330
-     layout (location = 0) in vec3 aPos;
-     void main() {
-          gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
-     }
+        #version 330 core
+        layout (location = 0) in vec3 aPos;
+        layout (location = 1) in vec3 aColor;
+        out vec3 color;
+        uniform float scale;
+        void main(){
+	        gl_Position = vec4(aPos.x + aPos.x * scale,
+						        aPos.y + aPos.y * scale, 
+						        aPos.z + aPos.z * scale, 
+						        1.0);
+	        color = aColor;
+        }
      ```
      `#version 330`<br>
      GLSLのバージョンを指定。**必ず1行目に記述**。GLSLのバージョンは基本的にOpenGLと同一で、OpenGLが3.3ならばGLSLも3.3。
@@ -38,25 +45,42 @@ OpenGLは3DCGを描画するための命令や処理を提供しない。命令�
      `layout (location = 0) in vec3 aPos;`<br>
      OpenGLの内部データからどのように取り出されるかを定義。この例では、「location = 0」と指定されているため、OpenGLの内部データの中から、最初に格納された3つの要素が、「aPos」として取り出される
 
+     `layout (location = 1) in vec3 aColor;`<br>
+     location0番目が終って次に格納されている3要素を「aColor」としている。
+         ![バッファ配置](https://learnopengl.com/img/getting-started/vertex_attribute_pointer_interleaved.png)
+     
+     `out vec3 color;`<br>
+     出力のattribute変数を定義。出力を3要素のベクトル「color」とする
+
+     `uniform float scale;`<br>
+     uniform変数を定義。uniform変数は頂点属性以外の汎用的なデータをシェーダに送るための変数。今回は「scale」という変数を入力データとしている。
+     
      `void main(){}`<br>
      main関数内でシェーダーが実際に行う処理を定義。
 
-     `gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);`<br>
+     `gl_Position = vec4(略);`<br>
      **gl_Position**という組み込み変数に頂点データを渡す。gl_Positionが4要素のベクトル（x,y,z,w）なため、3要素(x,y,z)から4要素のベクトルに変換している。「w」は行列計算で便宜上必要な値。
+
+     `color = aColor;`<br>
+     colorを出力。この変数はフラグメントシェーダーの入力、つまり「in」変数に格納される。
 
 - フラグメントシェーダーファイル(default.frag)
      ```glsl
-     #version 330
-     out vec4 FragColor;
-     void main(){
-          FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
-     }
+        #version 330 core
+        out vec4 FragColor;
+        in vec3 color;
+        void main(){
+	        FragColor = vec4(color, 1.0f);
+        }
      ```
 
      `out vec4 FragColor;`<br>
      出力形式を4要素のベクトル「FragColor」と定義
 
-     `FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);`<br>
+     `in vec3 color;`<br>
+     頂点シェーダーの出力の「color」を受け取る。必ず頂点シェーダーで定義した時と同じ変数名にする必要。
+
+     `FragColor = vec4(color, 1.0f);`<br>
      RGBA形式で出力。三角形の色を決定。
 
 ### シェーダーオブジェクト & プログラムオブジェクト

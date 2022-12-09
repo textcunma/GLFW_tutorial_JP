@@ -6,12 +6,17 @@ VAO::VAO() {
 }
 
 // VBOを連携
-void VAO::LinkVBO(VBO VBO, GLuint layout) {
+void VAO::LinkAttrib(VBO VBO,
+					GLuint layout,			// location
+					GLuint numComponents,	// 要素数
+					GLenum type,			// データ型
+					GLsizeiptr stride,		// 属性間のバイトオフセット
+					void* offset){			// バッファの先頭のポインタ
 	// VBOを有効化
 	VBO.Bind();
 
 	// 頂点情報の格納場所と書式を指定
-	glVertexAttribPointer(layout, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glVertexAttribPointer(layout, numComponents, type, GL_FALSE, stride, offset);
 	glEnableVertexAttribArray(layout);
 
 	// VBOを無効化

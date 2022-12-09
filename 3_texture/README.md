@@ -14,6 +14,10 @@ https://github.com/nothings/stb/blob/master/stb_image.h
 #include<stb/stb_image.h>
 ```
 
+### 全体の流れ
+<img src="https://marina.sys.wakayama-u.ac.jp/~tokoi/glfw/pipeline5.png">
+
+
 ### テクスチャの読み込み
 stbライブラリの関数を使用してテクスチャを読み込む。ただし、OpenGLとstbの座標系が反転しているため垂直反転する必要がある。
 ```c++
@@ -39,8 +43,9 @@ glTexImage2D(texType, 0, GL_RGBA, widthImg, heightImg, 0, format, pixelType, byt
 // 引数4: width : テクスチャ画像の幅を指定
 // 引数5: height : テクスチャ画像の高さを指定
 // 引数6: border : 境界幅(0 or 1)
-// 引数7: format : 入力ピクセルデータのフォーマット(GL_RGBA)など 
-// 引数8: *pixels : 画像配列のポインタ
+// 引数7: format : 入力ピクセルデータのフォーマット(GL_RGBA)など
+// 引数8: type : ピクセルデータのデータ型
+// 引数9: *pixels : 画像配列のポインタ
 ```
 
 ### テクスチャをシェーダーで利用

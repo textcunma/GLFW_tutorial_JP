@@ -3,7 +3,13 @@
 <img src="./image.jpg" width="200" title="三角形" alt="描画結果">
 </div>
 
+### 3DCGの処理の流れ
+<img src="https://marina.sys.wakayama-u.ac.jp/~tokoi/glfw/pipeline1.png">
+<img src="https://marina.sys.wakayama-u.ac.jp/~tokoi/glfw/pipeline5.png">
+
+
 ### 頂点シェーダーとフラグメントシェーダー
+
 - シェーダーの役割<br>
 OpenGLは3DCGを描画するための命令や処理を提供しない。命令や処理を定義するために「**シェーダー**」という仕組みが用意。
 
@@ -17,6 +23,7 @@ OpenGLは3DCGを描画するための命令や処理を提供しない。命令�
 
 ### シェーダーファイル
 3DCGを描画するためにGLSLで記述。
+
 
 - 頂点シェーダーファイル(default.vert)
      ```glsl

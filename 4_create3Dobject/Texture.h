@@ -19,7 +19,7 @@ public:
 
 	// uniform変数に代入(シェーダーにデータを渡す)
 	void texUnit(Shader shader, const char* uniform, GLuint unit);
-	
+
 	void Bind();	// 有効化
 	void Unbind();	// 無効化
 	void Delete();	// 削除

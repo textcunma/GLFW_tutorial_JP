@@ -11,11 +11,11 @@ public:
 	GLenum type;	// テクスチャの種類(2D or 3D)
 
 	// コンストラクタ
-	Texture(const char* image, 
-			GLenum texType,	// テクスチャの種類(2D or 3D)
-			GLenum slot,		// テクスチャユニット番号
-			GLenum format, 	// 入力ピクセルデータのフォーマット(GL_RGBA)など
-			GLenum pixelType);	// ピクセルデータのデータ型
+	Texture(const char* image,
+		GLenum texType,	// テクスチャの種類(2D or 3D)
+		GLenum slot,		// テクスチャユニット番号
+		GLenum format, 	// 入力ピクセルデータのフォーマット(GL_RGBA)など
+		GLenum pixelType);	// ピクセルデータのデータ型
 
 	// uniform変数に代入(シェーダーにデータを渡す)
 	void texUnit(Shader& shader, const char* uniform, GLuint unit);

@@ -5,7 +5,7 @@
 
 class VBO {
 	public:
-		// EBOのIDを格納する配列のポインタ
+		// VBOのIDを格納する配列のポインタ
 		GLuint ID;
 
 		// コンストラクタ

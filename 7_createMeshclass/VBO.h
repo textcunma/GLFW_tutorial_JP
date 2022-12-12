@@ -6,8 +6,7 @@
 #include<vector>
 
 // 頂点データ構造
-struct Vertex
-{
+struct Vertex {
 	glm::vec3 position;
 	glm::vec3 normal;
 	glm::vec3 color;
@@ -16,7 +15,7 @@ struct Vertex
 
 class VBO {
 public:
-	// EBOのIDを格納する配列のポインタ
+	// VBOのIDを格納する配列のポインタ
 	GLuint ID;
 
 	// コンストラクタ

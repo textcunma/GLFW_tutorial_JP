@@ -91,7 +91,7 @@ int main() {
 	EBO1.Unbind();
 
 	// テクスチャ設定
-	Texture Tex("./5_camera/human.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	Texture Tex("../image/human.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 
 	// デプステストの有効化
 	glEnable(GL_DEPTH_TEST);

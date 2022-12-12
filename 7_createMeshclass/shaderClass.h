@@ -8,19 +8,19 @@
 #include<cerrno>
 #include<glad/glad.h>
 
-// ƒVƒF[ƒ_[ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
 std::string get_file_contents(const char* filename);
 
 class Shader {
 public:
-	// ƒVƒF[ƒ_[ƒvƒƒOƒ‰ƒ€‚Ì¯•ÊID
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®è­˜åˆ¥ID
 	GLuint ID;
 
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Shader(const char* vertexFile, const char* fragmentFile);
 
-	void Activate();	// —LŒø‰»
-	void Delete();		// –³Œø‰»
+	void Activate();	// æœ‰åŠ¹åŒ–
+	void Delete();		// ç„¡åŠ¹åŒ–
 
 private:
 	void compileErrors(unsigned int shader, const char* type);

@@ -169,12 +169,12 @@ int main() {
 		lightPos.x, lightPos.y, lightPos.z);
 
 	// 拡散反射マップ
-	Texture tileTex("./6_createLight/container2.png", \
+	Texture tileTex("../image/container2.png", \
 		GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE);
 	tileTex.texUnit(shaderProgram, "tex0", 0);
 
 	// スペキュラーマップ
-	Texture tileSpec("./6_createLight/container2_specular.png", \
+	Texture tileSpec("../image/container2_specular.png", \
 		GL_TEXTURE_2D, 1, GL_RED, GL_UNSIGNED_BYTE);
 	tileSpec.texUnit(shaderProgram, "tex1", 1);
 

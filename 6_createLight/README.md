@@ -1,6 +1,6 @@
 # 光
 
-<img src="./result.jpg" alt="結果画像" width=500>
+<img src="../assets/6_result.jpg" alt="結果画像" width=500>
 
 ### 光源作成
 立方体の光源を作成する。立方体の座標, 頂点インデックスを作成。<br>
@@ -111,4 +111,4 @@ PBRテクスチャは以下からダウンロード
 
     $I = \frac{\theta - outerCone}{\epsilon}$
 
-    <img src="./spotlight.jpg" width="300">
+    <img src="../assets/6_spotlight.jpg" width="300">

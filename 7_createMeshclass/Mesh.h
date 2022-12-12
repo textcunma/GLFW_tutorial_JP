@@ -15,15 +15,15 @@ public:
 	std::vector <GLuint> indices;
 	std::vector <Texture> textures;
 	
-	// VAO‚ðì¬
+	// VAOã‚’ä½œæˆ
 	VAO VAO;
 
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Mesh(std::vector <Vertex>& vertices, 
 		std::vector <GLuint>& indices, 
 		std::vector <Texture>& textures);
 
-	// ƒƒbƒVƒ…•`‰æŠÖ”
+	// ãƒ¡ãƒƒã‚·ãƒ¥æç”»é–¢æ•°
 	void Draw(Shader& shader, Camera& camera);
 };
 #endif

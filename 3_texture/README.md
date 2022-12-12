@@ -15,8 +15,8 @@ https://github.com/nothings/stb/blob/master/stb_image.h
 ```
 
 ### 全体の流れ
-<img src="https://marina.sys.wakayama-u.ac.jp/~tokoi/glfw/pipeline5.png">
-
+<img src="../assets/2_3dpipe_ver2.png"><br>
+[図引用元](https://marina.sys.wakayama-u.ac.jp/~tokoi/glfw/pipeline5.png)
 
 ### テクスチャの読み込み
 stbライブラリの関数を使用してテクスチャを読み込む。ただし、OpenGLとstbの座標系が反転しているため垂直反転する必要がある。

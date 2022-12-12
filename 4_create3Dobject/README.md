@@ -19,7 +19,7 @@ while (略) {
 ```
 ### 座標系と変換
 3DCGモデルを描画するために5津の座標系が存在。
-<img src="./coord.jpg"><br>
+<img src="../assets/4_coord.jpg"><br>
 [Learn OpenGL](https://learnopengl.com/Getting-started/Coordinate-Systems)より引用
 
 1. ローカル座標系<br>

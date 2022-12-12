@@ -83,7 +83,7 @@ int main() {
 	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
 
 	// テクスチャ登録
-	Texture Tex("./3_texture/human.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	Texture Tex("../image/human.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 
 	// テクスチャユニットを配置
 	Tex.texUnit(shaderProgram, "tex0", 0);

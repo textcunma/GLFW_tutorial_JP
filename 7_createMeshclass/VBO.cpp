@@ -1,23 +1,23 @@
 #include"VBO.h"
 
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 VBO::VBO(std::vector<Vertex>& vertices) {
-	// VBO‚ğì¬, —LŒø‰»
+	// VBOã‚’ä½œæˆ, æœ‰åŠ¹åŒ–
 	glGenBuffers(1, &ID);
 	glBindBuffer(GL_ARRAY_BUFFER, ID);
 
-	// VBO‚É’¸“_ƒf[ƒ^‚ğŠi”[
+	// VBOã«é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã‚’æ ¼ç´
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
 }
 
 void VBO::Bind() {
-	glBindBuffer(GL_ARRAY_BUFFER, ID);	// VBO‚ğ—LŒø‰»
+	glBindBuffer(GL_ARRAY_BUFFER, ID);	// VBOã‚’æœ‰åŠ¹åŒ–
 }
 
 void VBO::Unbind() {
-	glBindBuffer(GL_ARRAY_BUFFER, 0);	// VBO‚ğ–³Œø‰»
+	glBindBuffer(GL_ARRAY_BUFFER, 0);	// VBOã‚’ç„¡åŠ¹åŒ–
 }
 
 void VBO::Delete() {
-	glDeleteBuffers(1, &ID);	// VBO‚ğíœ
+	glDeleteBuffers(1, &ID);	// VBOã‚’å‰Šé™¤
 }

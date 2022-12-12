@@ -1,12 +1,16 @@
 # 三角形の描画
 <div align="center">
-<img src="./image.jpg" width="200" title="三角形" alt="描画結果">
+<img src="../assets/2_result.jpg" width="200" title="三角形" alt="描画結果">
 </div>
 
 ### 3DCGの処理の流れ
-<img src="https://marina.sys.wakayama-u.ac.jp/~tokoi/glfw/pipeline1.png">
-<img src="https://marina.sys.wakayama-u.ac.jp/~tokoi/glfw/pipeline5.png">
+3DCGの処理の流れは以下の2つの図で表される通り、複数の工程を経る。その中で特に頂点に関する頂点に関する工程、ピクセルの色を決定するフラグメントの工程が重要で一般的にこの2つはカスタマイズされる。カスタマイズするために「シェーダー」が利用される。
 
+<img src="../assets/2_3dpipe.png"><br>
+[図引用元](https://marina.sys.wakayama-u.ac.jp/~tokoi/glfw/pipeline1.png)
+
+<img src="../assets/2_3dpipe_ver2.png"><br>
+[図引用元](https://marina.sys.wakayama-u.ac.jp/~tokoi/glfw/pipeline5.png)
 
 ### 頂点シェーダーとフラグメントシェーダー
 

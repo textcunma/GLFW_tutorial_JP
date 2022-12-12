@@ -14,86 +14,86 @@ uniform vec4 lightColor;
 uniform vec3 lightPos;
 uniform vec3 camPos;
 
-// •½sŒõŒ¹
+// å¹³è¡Œå…‰æº
 vec4 direcLight() {
-	vec3 normal = normalize(Normal);								// –@ü(³‹K‰»Ï‚İ)
-	vec3 lightDirection = normalize(vec3(1.0f, 1.0f, 0.0f));		// Œõü(³‹K‰»Ï‚İ)
+	vec3 normal = normalize(Normal);								// æ³•ç·š(æ­£è¦åŒ–æ¸ˆã¿)
+	vec3 lightDirection = normalize(vec3(1.0f, 1.0f, 0.0f));		// å…‰ç·š(æ­£è¦åŒ–æ¸ˆã¿)
 
-	// ŠgUŒõ
+	// æ‹¡æ•£å…‰
 	float diffuse = max(dot(normal, lightDirection), 0.0f);	
 
-	// ‹¾–Ê”½ËŒõ
-	float specularLight = 0.50f;									// ‹¾–Ê”½ËŒõŒW”
-	vec3 viewDirection = normalize(camPos - crntPos);				// ‹üƒxƒNƒgƒ‹
-	vec3 reflectionDirection = reflect(-lightDirection, normal);	// ”½ËƒxƒNƒgƒ‹
+	// é¡é¢åå°„å…‰
+	float specularLight = 0.50f;									// é¡é¢åå°„å…‰ä¿‚æ•°
+	vec3 viewDirection = normalize(camPos - crntPos);				// è¦–ç·šãƒ™ã‚¯ãƒˆãƒ«
+	vec3 reflectionDirection = reflect(-lightDirection, normal);	// åå°„ãƒ™ã‚¯ãƒˆãƒ«
 	float specAmount = pow(max(dot(viewDirection, reflectionDirection), 0.0f), 32);
 	float specular = specAmount * specularLight;
 
-	// ŠÂ‹«ŒõŒW”
+	// ç’°å¢ƒå…‰ä¿‚æ•°
 	float ambient = 0.20f;
 	
-	// ÅIF‚ÌŒvZ
+	// æœ€çµ‚è‰²ã®è¨ˆç®—
 	return (texture(diffuse0, texCoord) * lightColor * (diffuse + ambient) + 
 							texture(specular0, texCoord).r * specular) * lightColor;
 }
 
-// “_ŒõŒ¹
+// ç‚¹å…‰æº
 vec4 pointLight() {
-	vec3 normal = normalize(Normal);			// –@ü(³‹K‰»Ï‚İ)
-	vec3 lightVec = lightPos - crntPos;			// ŒõüƒxƒNƒgƒ‹
-	vec3 lightDirection = normalize(lightVec);	// Œõü(³‹K‰»Ï‚İ)
+	vec3 normal = normalize(Normal);			// æ³•ç·š(æ­£è¦åŒ–æ¸ˆã¿)
+	vec3 lightVec = lightPos - crntPos;			// å…‰ç·šãƒ™ã‚¯ãƒˆãƒ«
+	vec3 lightDirection = normalize(lightVec);	// å…‰ç·š(æ­£è¦åŒ–æ¸ˆã¿)
 	
-	// ŠgUŒõ
+	// æ‹¡æ•£å…‰
 	float diffuse = max(dot(normal, lightDirection), 0.0f);
 
-	// ‹¾–Ê”½ËŒõ
+	// é¡é¢åå°„å…‰
 	float specularLight = 0.50f;
-	vec3 viewDirection = normalize(camPos - crntPos);				// ‹üƒxƒNƒgƒ‹(³‹K‰»Ï‚İ)
-	vec3 reflectionDirection = reflect(-lightDirection, normal);	// ”½ËƒxƒNƒgƒ‹(³‹K‰»Ï‚İ)
+	vec3 viewDirection = normalize(camPos - crntPos);				// è¦–ç·šãƒ™ã‚¯ãƒˆãƒ«(æ­£è¦åŒ–æ¸ˆã¿)
+	vec3 reflectionDirection = reflect(-lightDirection, normal);	// åå°„ãƒ™ã‚¯ãƒˆãƒ«(æ­£è¦åŒ–æ¸ˆã¿)
 	float specAmount = pow(max(dot(viewDirection, reflectionDirection), 0.0f), 32);
 	float specular = specAmount * specularLight;
 
-	// ŠÂ‹«ŒõŒW”
+	// ç’°å¢ƒå…‰ä¿‚æ•°
 	float ambient = 0.20f;	
 
-	// Œõ‚Ì‹­“x
-	float a = 0.05;	// “ñŸ€‚ÌŒW”
-	float b = 0.01; // ˆêŸ€‚ÌŒW”
+	// å…‰ã®å¼·åº¦
+	float a = 0.05;	// äºŒæ¬¡é …ã®ä¿‚æ•°
+	float b = 0.01; // ä¸€æ¬¡é …ã®ä¿‚æ•°
 	float dist = length(lightVec);
 	float inten = 1.0f / (a * dist * dist + b * dist + 1.0f);
 
-	// ÅIF‚ÌŒvZ
+	// æœ€çµ‚è‰²ã®è¨ˆç®—
 	return (texture(diffuse0, texCoord) * lightColor * (diffuse * inten + ambient) +
 						texture(specular0, texCoord).r * specular * inten ) * lightColor;
 }
 
-// ƒXƒ|ƒbƒgƒ‰ƒCƒgŒõŒ¹
+// ã‚¹ãƒãƒƒãƒˆãƒ©ã‚¤ãƒˆå…‰æº
 vec4 spotLight() {
-	vec3 normal = normalize(Normal);						// –@ü(³‹K‰»Ï‚İ)
-	vec3 lightDirection = normalize(lightPos - crntPos);	// Œõü(³‹K‰»Ï‚İ)
+	vec3 normal = normalize(Normal);						// æ³•ç·š(æ­£è¦åŒ–æ¸ˆã¿)
+	vec3 lightDirection = normalize(lightPos - crntPos);	// å…‰ç·š(æ­£è¦åŒ–æ¸ˆã¿)
 
-	// ŠgUŒõ
+	// æ‹¡æ•£å…‰
 	float diffuse = max(dot(normal, lightDirection), 0.0f);	
 	
-	// ‹¾–Ê”½ËŒõ
+	// é¡é¢åå°„å…‰
 	float specularLight = 0.50f;
-	vec3 viewDirection = normalize(camPos - crntPos);				// ‹üƒxƒNƒgƒ‹(³‹K‰»Ï‚İ)
-	vec3 reflectionDirection = reflect(-lightDirection, normal);	// ”½ËƒxƒNƒgƒ‹(³‹K‰»Ï‚İ)
+	vec3 viewDirection = normalize(camPos - crntPos);				// è¦–ç·šãƒ™ã‚¯ãƒˆãƒ«(æ­£è¦åŒ–æ¸ˆã¿)
+	vec3 reflectionDirection = reflect(-lightDirection, normal);	// åå°„ãƒ™ã‚¯ãƒˆãƒ«(æ­£è¦åŒ–æ¸ˆã¿)
 	float specAmount = pow(max(dot(viewDirection, reflectionDirection), 0.0f), 16);
 	float specular = specAmount * specularLight;
 
-	// ŠÂ‹«ŒõŒW”
+	// ç’°å¢ƒå…‰ä¿‚æ•°
 	float ambient = 0.20f;	
 
-	// Œõ‚Ì‹­“x
-	float innerCone = 0.95f;	// “à‘¤‚Ì‰~‚ÆŒõü‚Æ‚ÌŠp“x
-	float outerCone = 0.90f;	// ŠO‘¤‚Ì‰~‚ÆŒõü‚Æ‚ÌŠp“x
-	vec3 spotDirection = vec3(0.0f, -1.0f, 0.0f);	// “_“”‚µ‚Ä‚¢‚éƒxƒNƒgƒ‹
+	// å…‰ã®å¼·åº¦
+	float innerCone = 0.95f;	// å†…å´ã®å††éŒã¨å…‰ç·šã¨ã®è§’åº¦
+	float outerCone = 0.90f;	// å¤–å´ã®å††éŒã¨å…‰ç·šã¨ã®è§’åº¦
+	vec3 spotDirection = vec3(0.0f, -1.0f, 0.0f);	// ç‚¹ç¯ã—ã¦ã„ã‚‹ãƒ™ã‚¯ãƒˆãƒ«
 	float theta = dot(spotDirection, -lightDirection);
 	float epsilon   = innerCone - outerCone;
-	float inten = clamp((theta - outerCone) / epsilon, 0.0f, 1.0f);	// ãŒÀE‰ºŒÀ‚ğİ’è‚Ìã,ŒvZ
+	float inten = clamp((theta - outerCone) / epsilon, 0.0f, 1.0f);	// ä¸Šé™ãƒ»ä¸‹é™ã‚’è¨­å®šã®ä¸Š,è¨ˆç®—
 
-	// ÅIF‚ÌŒvZ
+	// æœ€çµ‚è‰²ã®è¨ˆç®—
 	return (texture(diffuse0, texCoord) * lightColor * (diffuse * inten + ambient) + 
 						texture(specular0, texCoord).r * specular * inten) * lightColor;
 }

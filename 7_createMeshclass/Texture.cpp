@@ -1,18 +1,18 @@
 #include"Texture.h"
 
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 Texture::Texture(const char* image, 
 				const char* texType, 
 				GLuint slot, 
 				GLenum format, 
 				GLenum pixelType)
 {
-	// ƒeƒNƒXƒ`ƒƒ‚Ìí—Ş‚ğƒNƒ‰ƒX‘S‘Ì‚Å—˜—p‰Â”\‚É‚·‚é
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ç¨®é¡ã‚’ã‚¯ãƒ©ã‚¹å…¨ä½“ã§åˆ©ç”¨å¯èƒ½ã«ã™ã‚‹
 	type = texType;
 
-	// ƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚Ş
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã‚€
 	int widthImg, heightImg, numColCh;
-	stbi_set_flip_vertically_on_load(true);	// ‚’¼”½“]
+	stbi_set_flip_vertically_on_load(true);	// å‚ç›´åè»¢
 	unsigned char* bytes = stbi_load(
 							image,
 							&widthImg,
@@ -20,66 +20,66 @@ Texture::Texture(const char* image,
 							&numColCh,
 							0);
 
-	// ƒeƒNƒXƒ`ƒƒ‚ğì¬
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä½œæˆ
 	glGenTextures(1, &ID);
 
-	// ƒeƒNƒXƒ`ƒƒ‚ÌƒXƒƒbƒg–¼‚ğw’è
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ã‚¹ãƒ­ãƒƒãƒˆåã‚’æŒ‡å®š
 	glActiveTexture(GL_TEXTURE0 + slot);
 
-	// ƒXƒƒbƒg”Ô†‚ğƒNƒ‰ƒX‘S‘Ì‚Å—˜—p‰Â”\‚É‚·‚é
+	// ã‚¹ãƒ­ãƒƒãƒˆç•ªå·ã‚’ã‚¯ãƒ©ã‚¹å…¨ä½“ã§åˆ©ç”¨å¯èƒ½ã«ã™ã‚‹
 	unit = slot;
 
-	// ƒeƒNƒXƒ`ƒƒ‚ğ—LŒø‰»
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æœ‰åŠ¹åŒ–
 	glBindTexture(GL_TEXTURE_2D, ID);
 
-	// ƒeƒNƒXƒ`ƒƒ‚Ì•âŠÔ•û–@(GL_NEAREST: Å‹ß–T–@)
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è£œé–“æ–¹æ³•(GL_NEAREST: æœ€è¿‘å‚æ³•)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	// ƒeƒNƒXƒ`ƒƒÀ•WŠO‚ÌƒeƒNƒXƒ`ƒƒ‚Ìˆµ‚¢•û‚ğw’è(GL_REPEAT: ŒJ‚è•Ô‚µ)
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™å¤–ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®æ‰±ã„æ–¹ã‚’æŒ‡å®š(GL_REPEAT: ç¹°ã‚Šè¿”ã—)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	// GPU‚ÉƒeƒNƒXƒ`ƒƒƒf[ƒ^‚ğ“n‚·
+	// GPUã«ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ‡ãƒ¼ã‚¿ã‚’æ¸¡ã™
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widthImg, heightImg, 0, format, pixelType, bytes);
 	
-	// ƒ~ƒbƒvƒ}ƒbƒv‚ğİ’è
+	// ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ã‚’è¨­å®š
 	glGenerateMipmap(GL_TEXTURE_2D);
 
-	// ‰æ‘œ‚Ì”jŠü
+	// ç”»åƒã®ç ´æ£„
 	stbi_image_free(bytes);
 
-	// ƒeƒNƒXƒ`ƒƒ‚Ì–³Œø‰»
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ç„¡åŠ¹åŒ–
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-// uniform•Ï”‚É‘ã“ü(ƒVƒF[ƒ_[‚Éƒf[ƒ^‚ğ“n‚·)
+// uniformå¤‰æ•°ã«ä»£å…¥(ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã«ãƒ‡ãƒ¼ã‚¿ã‚’æ¸¡ã™)
 void Texture::texUnit(Shader& shader, const char* uniform, GLuint unit) {
-	// uniform•Ï”‚Ì¯•Êq‚ğ“¾‚é
+	// uniformå¤‰æ•°ã®è­˜åˆ¥å­ã‚’å¾—ã‚‹
 	GLuint texUni = glGetUniformLocation(shader.ID, uniform);
 
-	// ƒVƒF[ƒ_[ƒvƒƒOƒ‰ƒ€‚ğ—LŒø‰»
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’æœ‰åŠ¹åŒ–
 	shader.Activate();
 
-	// ƒVƒF[ƒ_[‚Éƒf[ƒ^‚ğ“n‚·
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã«ãƒ‡ãƒ¼ã‚¿ã‚’æ¸¡ã™
 	glUniform1i(texUni, unit);
 }
 
-// —LŒø‰»
+// æœ‰åŠ¹åŒ–
 void Texture::Bind() {
-	// ƒeƒNƒXƒ`ƒƒƒ†ƒjƒbƒgØ‚è‘Ö‚¦
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¦ãƒ‹ãƒƒãƒˆåˆ‡ã‚Šæ›¿ãˆ
 	glActiveTexture(GL_TEXTURE0 + unit);
 
-	// ƒeƒNƒXƒ`ƒƒ‚Ì—LŒø‰»
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®æœ‰åŠ¹åŒ–
 	glBindTexture(GL_TEXTURE_2D, ID);
 }
 
-// –³Œø‰»
+// ç„¡åŠ¹åŒ–
 void Texture::Unbind() {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-// íœ
+// å‰Šé™¤
 void Texture::Delete() {
 	glDeleteTextures(1, &ID);
 }

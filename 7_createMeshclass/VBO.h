@@ -5,8 +5,7 @@
 #include<glad/glad.h>
 #include<vector>
 
-
-// ’¸“_ƒf[ƒ^\‘¢
+// é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿æ§‹é€ 
 struct Vertex
 {
 	glm::vec3 position;
@@ -17,15 +16,15 @@ struct Vertex
 
 class VBO {
 public:
-	// EBO‚ÌID‚ğŠi”[‚·‚é”z—ñ‚Ìƒ|ƒCƒ“ƒ^
+	// EBOã®IDã‚’æ ¼ç´ã™ã‚‹é…åˆ—ã®ãƒã‚¤ãƒ³ã‚¿
 	GLuint ID;
 
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	VBO(std::vector<Vertex>& vertices);
 
-	void Bind();	// —LŒø‰»
-	void Unbind();	// –³Œø‰»
-	void Delete();	// íœ
+	void Bind();	// æœ‰åŠ¹åŒ–
+	void Unbind();	// ç„¡åŠ¹åŒ–
+	void Delete();	// å‰Šé™¤
 
 };
 

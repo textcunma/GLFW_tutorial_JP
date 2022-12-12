@@ -1,6 +1,6 @@
 #include "Mesh.h"
 
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 Mesh::Mesh(std::vector <Vertex>& vertices, 
 			std::vector <GLuint>& indices, 
 			std::vector <Texture>& textures) {
@@ -9,16 +9,16 @@ Mesh::Mesh(std::vector <Vertex>& vertices,
 	Mesh::indices = indices;
 	Mesh::textures = textures;
 
-	// VAO‚ğ—LŒø‰»
+	// VAOã‚’æœ‰åŠ¹åŒ–
 	VAO.Bind();
 	
-	// VBO‚ğì¬, —LŒø‰»
+	// VBOã‚’ä½œæˆ, æœ‰åŠ¹åŒ–
 	VBO VBO(vertices);
 	
-	// EBO‚ğì¬, —LŒø‰»
+	// EBOã‚’ä½œæˆ, æœ‰åŠ¹åŒ–
 	EBO EBO(indices);
 
-	// VBO‚ğ˜AŒg(’¸“_ˆÊ’u, ’¸“_F, ƒeƒNƒXƒ`ƒƒÀ•W, –@ü)
+	// VBOã‚’é€£æº(é ‚ç‚¹ä½ç½®, é ‚ç‚¹è‰², ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™, æ³•ç·š)
 	VAO.LinkAttrib(VBO, 0, 3, GL_FLOAT,\
 		sizeof(Vertex), (void*)0);
 	VAO.LinkAttrib(VBO, 1, 3, GL_FLOAT,\
@@ -28,20 +28,20 @@ Mesh::Mesh(std::vector <Vertex>& vertices,
 	VAO.LinkAttrib(VBO, 3, 2, GL_FLOAT,\
 		sizeof(Vertex), (void*)(9 * sizeof(float)));
 
-	// VAO, VBO, EBO‚ğ–³Œø‰»
+	// VAO, VBO, EBOã‚’ç„¡åŠ¹åŒ–
 	VAO.Unbind();
 	VBO.Unbind();
 	EBO.Unbind();
 }
 
-// ƒƒbƒVƒ…•`‰æŠÖ”
+// ãƒ¡ãƒƒã‚·ãƒ¥æç”»é–¢æ•°
 void Mesh::Draw(Shader& shader, Camera& camera)
 {
-	// ƒVƒF[ƒ_[, VAO‚ğ—LŒø‰»
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼, VAOã‚’æœ‰åŠ¹åŒ–
 	shader.Activate();
 	VAO.Bind();
 
-	// ƒeƒNƒXƒ`ƒƒ”‚ğ’ÇÕ
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£æ•°ã‚’è¿½è·¡
 	unsigned int numDiffuse = 0;
 	unsigned int numSpecular = 0;
 
@@ -55,20 +55,20 @@ void Mesh::Draw(Shader& shader, Camera& camera)
 			num = std::to_string(numSpecular++);
 		}
 
-		// uniform•Ï”‚É‘ã“ü(ƒVƒF[ƒ_[‚Éƒf[ƒ^‚ğ“n‚·)
+		// uniformå¤‰æ•°ã«ä»£å…¥(ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã«ãƒ‡ãƒ¼ã‚¿ã‚’æ¸¡ã™)
 		textures[i].texUnit(shader, (type + num).c_str(), i);
 
-		// ƒeƒNƒXƒ`ƒƒ‚ğ—LŒø‰»
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æœ‰åŠ¹åŒ–
 		textures[i].Bind();
 	}
 
-	// uniform•Ï”(camPos)‚ÉƒJƒƒ‰À•W‚ğ“n‚·
+	// uniformå¤‰æ•°(camPos)ã«ã‚«ãƒ¡ãƒ©åº§æ¨™ã‚’æ¸¡ã™
 	glUniform3f(glGetUniformLocation(shader.ID, "camPos"), \
 		camera.Position.x, camera.Position.y, camera.Position.z);
 
-	// uniform•Ï”(camMatrix)‚É•ÏŠ·s—ñ‚ğ“n‚·
+	// uniformå¤‰æ•°(camMatrix)ã«å¤‰æ›è¡Œåˆ—ã‚’æ¸¡ã™
 	camera.Matrix(shader, "camMatrix");
 
-	// backƒoƒbƒtƒ@‚É}Œ`‚ğ•`‰æ
+	// backãƒãƒƒãƒ•ã‚¡ã«å›³å½¢ã‚’æç”»
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }

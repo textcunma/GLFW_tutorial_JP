@@ -13,32 +13,32 @@
 
 class Camera {
 public:
-	// ƒJƒƒ‰ˆÊ’u
+	// ã‚«ãƒ¡ãƒ©ä½ç½®
 	glm::vec3 Position;	// glm::vec3(0.0f, 0.0f, 2.0f)
 
-	// ƒJƒƒ‰‚Ì‹üƒxƒNƒgƒ‹(³‹K‰»Ï)
+	// ã‚«ãƒ¡ãƒ©ã®è¦–ç·šãƒ™ã‚¯ãƒˆãƒ«(æ­£è¦åŒ–æ¸ˆ)
 	glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
 
-	// ã•ûŒü(³‹K‰»Ï‚İ)
-	glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);	// y²‚ªã
+	// ä¸Šæ–¹å‘(æ­£è¦åŒ–æ¸ˆã¿)
+	glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);	// yè»¸ãŒä¸Š
 
-	bool firstClick = true;		// ƒJƒƒ‰‘€ìƒtƒ‰ƒO
-	int width;				// •\¦‰æ–Ê•
-	int height;				// •\¦‰æ–Ê‚‚³
-	float speed = 0.1f;			// •Ï‰»‘¬“x
-	float sensitivity = 100.0f;	// ƒJƒƒ‰Š´“x
+	bool firstClick = true;		// ã‚«ãƒ¡ãƒ©æ“ä½œãƒ•ãƒ©ã‚°
+	int width;				// è¡¨ç¤ºç”»é¢å¹…
+	int height;				// è¡¨ç¤ºç”»é¢é«˜ã•
+	float speed = 0.1f;			// å¤‰åŒ–é€Ÿåº¦
+	float sensitivity = 100.0f;	// ã‚«ãƒ¡ãƒ©æ„Ÿåº¦
 	
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Camera(int width, int height, glm::vec3 position);
 
-	// •ÏŠ·s—ñì¬
-	void Matrix(float FOVdeg,			// ‹–ìŠp
-				float nearPlane,		// ‘O•ûƒNƒŠƒbƒv–Ê
-				float farPlane,		// Œã•ûƒNƒŠƒbƒv–Ê
+	// å¤‰æ›è¡Œåˆ—ä½œæˆ
+	void Matrix(float FOVdeg,			// è¦–é‡è§’
+				float nearPlane,		// å‰æ–¹ã‚¯ãƒªãƒƒãƒ—é¢
+				float farPlane,		// å¾Œæ–¹ã‚¯ãƒªãƒƒãƒ—é¢
 				Shader& shader, 
 				const char* uniform);
 
-	// ƒJƒƒ‰‘€ì
+	// ã‚«ãƒ¡ãƒ©æ“ä½œ
 	void Inputs(GLFWwindow* window);
 };
 

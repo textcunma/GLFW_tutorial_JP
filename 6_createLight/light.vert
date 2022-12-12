@@ -2,8 +2,8 @@
 
 layout (location = 0) in vec3 aPos;
 
-uniform mat4 model;		// ƒ‚ƒfƒ‹•ÏŠ·s—ñ(ƒ[ƒ‹ƒhÀ•WŒn‚ÌŒõŒ¹‚ÌˆÊ’u)
-uniform mat4 camMatrix;	// ƒrƒ…[E“Š‰e•ÏŠ·s—ñ
+uniform mat4 model;		// ãƒ¢ãƒ‡ãƒ«å¤‰æ›è¡Œåˆ—(ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ç³»ã®å…‰æºã®ä½ç½®)
+uniform mat4 camMatrix;	// ãƒ“ãƒ¥ãƒ¼ãƒ»æŠ•å½±å¤‰æ›è¡Œåˆ—
 
 void main() {
 	gl_Position = camMatrix * model * vec4(aPos, 1.0f);

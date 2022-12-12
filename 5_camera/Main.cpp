@@ -12,9 +12,9 @@
 #include"Texture.h"
 #include"shaderClass.h"
 
-// ’¸“_î•ñ
+// é ‚ç‚¹æƒ…å ±
 GLfloat vertices[] = {
-	// À•Wî•ñ			Fî•ñ				ƒeƒNƒXƒ`ƒƒÀ•W
+	// åº§æ¨™æƒ…å ±			è‰²æƒ…å ±				ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™
 	-0.5f,	0.0f,  0.5f,	0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
 	-0.5f,	0.0f, -0.5f,	0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
 	 0.5f,	0.0f, -0.5f,	0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
@@ -22,7 +22,7 @@ GLfloat vertices[] = {
 	 0.0f,	0.8f,  0.0f,	0.92f, 0.86f, 0.76f,	2.5f, 5.0f,
 };
 
-// ’¸“_ƒCƒ“ƒfƒbƒNƒX
+// é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 GLuint indices[] = {
 	0, 1, 2,
 	0, 2, 3,
@@ -32,21 +32,21 @@ GLuint indices[] = {
 	3, 0, 4
 };
 
-const unsigned int width = 800;    // ƒEƒBƒ“ƒhƒE•
-const unsigned int height = 800;   // ƒEƒBƒ“ƒhƒE‚‚³
+const unsigned int width = 800;    // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å¹…
+const unsigned int height = 800;   // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦é«˜ã•
 
 int main() {
-	// GLFW‰Šú‰»
+	// GLFWåˆæœŸåŒ–
 	glfwInit();
 
-	// OpenGL ƒo[ƒWƒ‡ƒ“3.3w’è
+	// OpenGL ãƒãƒ¼ã‚¸ãƒ§ãƒ³3.3æŒ‡å®š
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
-	// ƒRƒAƒvƒƒtƒ@ƒCƒ‹‚ğİ’è
+	// ã‚³ã‚¢ãƒ—ãƒ­ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¨­å®š
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	// ƒEƒBƒ“ƒhƒE¶¬
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ç”Ÿæˆ
 	GLFWwindow* window = \
 		glfwCreateWindow(width, height, "GLFW Tutorial", NULL, NULL);
 
@@ -56,99 +56,99 @@ int main() {
 		return -1;
 	}
 
-	// OpenGL‚ª•`‰æ‚·‚éƒEƒBƒ“ƒhƒE‚ğw’è
+	// OpenGLãŒæç”»ã™ã‚‹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’æŒ‡å®š
 	glfwMakeContextCurrent(window);
 
-	// GLAD“Ç‚İ‚İ
+	// GLADèª­ã¿è¾¼ã¿
 	gladLoadGL();
 
-	// ƒEƒBƒ“ƒhƒEŠJnˆÊ’u‚ğw’è
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦é–‹å§‹ä½ç½®ã‚’æŒ‡å®š
 	glViewport(0, 0, width, height);
 
-	// ƒVƒF[ƒ_[ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
 	Shader shaderProgram("./5_camera/default.vert", "./5_camera/default.frag");
 
-	// VAO‚ğì¬, —LŒø‰»
+	// VAOã‚’ä½œæˆ, æœ‰åŠ¹åŒ–
 	VAO VAO1;
 	VAO1.Bind();
 
-	// VBO‚ğì¬, —LŒø‰», ’¸“_ƒf[ƒ^‚ğİ’è
+	// VBOã‚’ä½œæˆ, æœ‰åŠ¹åŒ–, é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®š
 	VBO VBO1(vertices, sizeof(vertices));
 
-	// EBO‚ğì¬, —LŒø‰», ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^‚ğİ’è
+	// EBOã‚’ä½œæˆ, æœ‰åŠ¹åŒ–, ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®š
 	EBO EBO1(indices, sizeof(indices));
 
-	// VBO‚ğ˜AŒg(’¸“_ˆÊ’u, ’¸“_F, ƒeƒNƒXƒ`ƒƒÀ•W)
+	// VBOã‚’é€£æº(é ‚ç‚¹ä½ç½®, é ‚ç‚¹è‰², ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™)
 	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
 	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 8 * sizeof(float),
 		(void*)(3 * sizeof(float)));
 	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 8 * sizeof(float),
 		(void*)(6 * sizeof(float)));
 
-	// VAO, VBO, EBO‚ğ–³Œø‰»
+	// VAO, VBO, EBOã‚’ç„¡åŠ¹åŒ–
 	VAO1.Unbind();
 	VBO1.Unbind();
 	EBO1.Unbind();
 
-	// ƒeƒNƒXƒ`ƒƒİ’è
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 	Texture Tex("./5_camera/human.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 
-	// ƒfƒvƒXƒeƒXƒg‚Ì—LŒø‰»
+	// ãƒ‡ãƒ—ã‚¹ãƒ†ã‚¹ãƒˆã®æœ‰åŠ¹åŒ–
 	glEnable(GL_DEPTH_TEST);
 
-	// ‰æ–Ê‚ÌXV•p“xİ’è(1•b‚É‚Â‚«1‰ñXV)
+	// ç”»é¢ã®æ›´æ–°é »åº¦è¨­å®š(1ç§’ã«ã¤ã1å›æ›´æ–°)
 	glfwSwapInterval(1);
 
-	// ƒJƒƒ‰İ’è(ƒJƒƒ‰ˆÊ’uw’è)
+	// ã‚«ãƒ¡ãƒ©è¨­å®š(ã‚«ãƒ¡ãƒ©ä½ç½®æŒ‡å®š)
 	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));	
 
-	// ƒƒCƒ“ƒ‹[ƒv
+	// ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—
 	while (glfwWindowShouldClose(window) == GL_FALSE) {
-		// ”wŒiFw’è	
+		// èƒŒæ™¯è‰²æŒ‡å®š	
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 
-		// ‰æ–Ê‚ğ‰Šú‰»(Fƒoƒbƒtƒ@, ƒfƒvƒXƒoƒbƒtƒ@‚ğ‰Šú‰»)
+		// ç”»é¢ã‚’åˆæœŸåŒ–(è‰²ãƒãƒƒãƒ•ã‚¡, ãƒ‡ãƒ—ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚’åˆæœŸåŒ–)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// ƒVƒF[ƒ_ƒvƒƒOƒ‰ƒ€‚Ì—LŒø‰»
+		// ã‚·ã‚§ãƒ¼ãƒ€ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®æœ‰åŠ¹åŒ–
 		shaderProgram.Activate();
 
-		// ƒJƒƒ‰‘€ì“ü—Í
+		// ã‚«ãƒ¡ãƒ©æ“ä½œå…¥åŠ›
 		camera.Inputs(window);
 
-		// •ÏŠ·s—ñì¬
+		// å¤‰æ›è¡Œåˆ—ä½œæˆ
 		camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
 
-		// ƒeƒNƒXƒ`ƒƒ‚ğ—LŒø‰»
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æœ‰åŠ¹åŒ–
 		Tex.Bind();
 
-		// VAO‚ğ—LŒø‰»
+		// VAOã‚’æœ‰åŠ¹åŒ–
 		VAO1.Bind();
 
-		// backƒoƒbƒtƒ@‚É}Œ`‚ğ•`‰æ
+		// backãƒãƒƒãƒ•ã‚¡ã«å›³å½¢ã‚’æç”»
 		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
-		// ƒVƒF[ƒ_ƒvƒƒOƒ‰ƒ€‚Ì–³Œø‰»
+		// ã‚·ã‚§ãƒ¼ãƒ€ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ç„¡åŠ¹åŒ–
 		glUseProgram(0);
 
-		// ‰æ–Ê‚ğXV
+		// ç”»é¢ã‚’æ›´æ–°
 		glfwSwapBuffers(window);
 
-		// ƒ†[ƒU[‚©‚ç‚Ì“ü—ÍƒCƒxƒ“ƒg‚ğˆ—
+		// ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‹ã‚‰ã®å…¥åŠ›ã‚¤ãƒ™ãƒ³ãƒˆã‚’å‡¦ç†
 		glfwPollEvents();
 	}
 
-	// VAO, VBO, EBO, ƒeƒNƒXƒ`ƒƒ, ƒVƒF[ƒ_[ƒvƒƒOƒ‰ƒ€‚ğíœ
+	// VAO, VBO, EBO, ãƒ†ã‚¯ã‚¹ãƒãƒ£, ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’å‰Šé™¤
 	VAO1.Delete();
 	VBO1.Delete();
 	EBO1.Delete();
 	Tex.Delete();
 	shaderProgram.Delete();
 
-	// ƒEƒBƒ“ƒhƒE‚ÌÁ‹
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®æ¶ˆå»
 	glfwDestroyWindow(window);
 
-	// GLFW‚ÌI—¹ˆ—
+	// GLFWã®çµ‚äº†å‡¦ç†
 	glfwTerminate();
 	return 0;
 }

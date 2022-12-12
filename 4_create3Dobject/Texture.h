@@ -7,22 +7,22 @@
 
 class Texture {
 public:
-	GLuint ID;	// ƒeƒNƒXƒ`ƒƒ‚ÌID‚ğŠi”[‚·‚é”z—ñ‚Ìƒ|ƒCƒ“ƒ^
-	GLenum type;	// ƒeƒNƒXƒ`ƒƒ‚Ìí—Ş(2D or 3D)
+	GLuint ID;	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®IDã‚’æ ¼ç´ã™ã‚‹é…åˆ—ã®ãƒã‚¤ãƒ³ã‚¿
+	GLenum type;	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ç¨®é¡(2D or 3D)
 
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Texture(const char* image, 
-			GLenum texType,	// ƒeƒNƒXƒ`ƒƒ‚Ìí—Ş(2D or 3D)
-			GLenum slot,		// ƒeƒNƒXƒ`ƒƒƒ†ƒjƒbƒg”Ô†
-			GLenum format, 	// “ü—ÍƒsƒNƒZƒ‹ƒf[ƒ^‚ÌƒtƒH[ƒ}ƒbƒg(GL_RGBA)‚È‚Ç
-			GLenum pixelType);	// ƒsƒNƒZƒ‹ƒf[ƒ^‚Ìƒf[ƒ^Œ^
+			GLenum texType,	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ç¨®é¡(2D or 3D)
+			GLenum slot,		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¦ãƒ‹ãƒƒãƒˆç•ªå·
+			GLenum format, 	// å…¥åŠ›ãƒ”ã‚¯ã‚»ãƒ«ãƒ‡ãƒ¼ã‚¿ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ(GL_RGBA)ãªã©
+			GLenum pixelType);	// ãƒ”ã‚¯ã‚»ãƒ«ãƒ‡ãƒ¼ã‚¿ã®ãƒ‡ãƒ¼ã‚¿å‹
 
-	// uniform•Ï”‚É‘ã“ü(ƒVƒF[ƒ_[‚Éƒf[ƒ^‚ğ“n‚·)
+	// uniformå¤‰æ•°ã«ä»£å…¥(ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã«ãƒ‡ãƒ¼ã‚¿ã‚’æ¸¡ã™)
 	void texUnit(Shader& shader, const char* uniform, GLuint unit);
 
-	void Bind();	// —LŒø‰»
-	void Unbind();	// –³Œø‰»
-	void Delete();	// íœ
+	void Bind();	// æœ‰åŠ¹åŒ–
+	void Unbind();	// ç„¡åŠ¹åŒ–
+	void Delete();	// å‰Šé™¤
 };
 
 #endif

@@ -1,36 +1,36 @@
 #include"VAO.h"
 
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 VAO::VAO() {
-	glGenVertexArrays(1, &ID);	//@VAO‚ğì¬
+	glGenVertexArrays(1, &ID);	//ã€€VAOã‚’ä½œæˆ
 }
 
-// VBO‚ğ˜AŒg
+// VBOã‚’é€£æº
 void VAO::LinkAttrib(VBO VBO,
 	GLuint layout,			// location
-	GLuint numComponents,	// —v‘f”
-	GLenum type,			// ƒf[ƒ^Œ^
-	GLsizeiptr stride,		// ‘®«ŠÔ‚ÌƒoƒCƒgƒIƒtƒZƒbƒg
-	void* offset) {		// ƒoƒbƒtƒ@‚Ìæ“ª‚Ìƒ|ƒCƒ“ƒ^
-// VBO‚ğ—LŒø‰»
+	GLuint numComponents,	// è¦ç´ æ•°
+	GLenum type,			// ãƒ‡ãƒ¼ã‚¿å‹
+	GLsizeiptr stride,		// å±æ€§é–“ã®ãƒã‚¤ãƒˆã‚ªãƒ•ã‚»ãƒƒãƒˆ
+	void* offset) {		// ãƒãƒƒãƒ•ã‚¡ã®å…ˆé ­ã®ãƒã‚¤ãƒ³ã‚¿
+// VBOã‚’æœ‰åŠ¹åŒ–
 	VBO.Bind();
 
-	// ’¸“_î•ñ‚ÌŠi”[êŠ‚Æ‘®‚ğw’è
+	// é ‚ç‚¹æƒ…å ±ã®æ ¼ç´å ´æ‰€ã¨æ›¸å¼ã‚’æŒ‡å®š
 	glVertexAttribPointer(layout, numComponents, type, GL_FALSE, stride, offset);
 	glEnableVertexAttribArray(layout);
 
-	// VBO‚ğ–³Œø‰»
+	// VBOã‚’ç„¡åŠ¹åŒ–
 	VBO.Unbind();
 }
 
 void VAO::Bind() {
-	glBindVertexArray(ID);	// VAO‚ğ—LŒø‰»
+	glBindVertexArray(ID);	// VAOã‚’æœ‰åŠ¹åŒ–
 }
 
 void VAO::Unbind() {
-	glBindVertexArray(0);	// VAO‚ğ–³Œø‰»
+	glBindVertexArray(0);	// VAOã‚’ç„¡åŠ¹åŒ–
 }
 
 void VAO::Delete() {
-	glDeleteVertexArrays(1, &ID);	// VAO‚ğíœ
+	glDeleteVertexArrays(1, &ID);	// VAOã‚’å‰Šé™¤
 }

@@ -7,9 +7,13 @@ x64
 # 画像
 ./6_createLight/container2.png
 ./6_createLight/container2_specular.png
+./7_createMeshclass/container2.png
+./7_createMeshclass/container2_specular.png
+
 
 # vscode
 *.vscode
+build
 
 # Visual Studioプロジェクト
 tutorial.*

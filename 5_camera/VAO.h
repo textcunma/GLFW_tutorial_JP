@@ -6,22 +6,22 @@
 
 class VAO {
 public:
-	// VAO‚ÌID‚ğŠi”[‚·‚é”z—ñ‚Ìƒ|ƒCƒ“ƒ^
+	// VAOã®IDã‚’æ ¼ç´ã™ã‚‹é…åˆ—ã®ãƒã‚¤ãƒ³ã‚¿
 	GLuint ID;
 
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	VAO();
 
-	// VBO‚ğ˜AŒg
+	// VBOã‚’é€£æº
 	void LinkAttrib(VBO VBO,
 		GLuint layout,			// location
-		GLuint numComponents,	// —v‘f”
-		GLenum type,			// ƒf[ƒ^Œ^
-		GLsizeiptr stride,		// ‘®«ŠÔ‚ÌƒoƒCƒgƒIƒtƒZƒbƒg
-		void* offset);			// ƒoƒbƒtƒ@‚Ìæ“ª‚Ìƒ|ƒCƒ“ƒ^
+		GLuint numComponents,	// è¦ç´ æ•°
+		GLenum type,			// ãƒ‡ãƒ¼ã‚¿å‹
+		GLsizeiptr stride,		// å±æ€§é–“ã®ãƒã‚¤ãƒˆã‚ªãƒ•ã‚»ãƒƒãƒˆ
+		void* offset);			// ãƒãƒƒãƒ•ã‚¡ã®å…ˆé ­ã®ãƒã‚¤ãƒ³ã‚¿
 
-	void Bind();		// —LŒø‰»
-	void Unbind();		// –³Œø‰»
-	void Delete();		// íœ
+	void Bind();		// æœ‰åŠ¹åŒ–
+	void Unbind();		// ç„¡åŠ¹åŒ–
+	void Delete();		// å‰Šé™¤
 };
 #endif

@@ -1,23 +1,23 @@
 #include"EBO.h"
 
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 EBO::EBO(GLuint* indices, GLsizeiptr size) {
-	// EBO‚ğ¶¬, —LŒø‰»
+	// EBOã‚’ç”Ÿæˆ, æœ‰åŠ¹åŒ–
 	glGenBuffers(1, &ID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID);
 
-	// EBO‚É’¸“_ƒCƒ“ƒfƒbƒNƒX‚ğŠi”[
+	// EBOã«é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’æ ¼ç´
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
 }
 
 void EBO::Bind() {
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID);	// VBO‚ğ—LŒø‰»
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID);	// VBOã‚’æœ‰åŠ¹åŒ–
 }
 
 void EBO::Unbind() {
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);	// VBO‚ğ–³Œø‰»
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);	// VBOã‚’ç„¡åŠ¹åŒ–
 }
 
 void EBO::Delete() {
-	glDeleteBuffers(1, &ID);	// VBO‚ğíœ
+	glDeleteBuffers(1, &ID);	// EBOã‚’å‰Šé™¤
 }

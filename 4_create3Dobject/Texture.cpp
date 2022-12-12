@@ -1,6 +1,6 @@
 #include"Texture.h"
 
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 Texture::Texture(
 	const char* image,
 	GLenum texType,
@@ -8,68 +8,68 @@ Texture::Texture(
 	GLenum format,
 	GLenum pixelType) {
 
-	// ƒeƒNƒXƒ`ƒƒ‚Ìí—Ş‚ğƒNƒ‰ƒX‘S‘Ì‚Å—˜—p‰Â”\‚É‚·‚é
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ç¨®é¡ã‚’ã‚¯ãƒ©ã‚¹å…¨ä½“ã§åˆ©ç”¨å¯èƒ½ã«ã™ã‚‹
 	type = texType;
 
-	// ƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚Ş
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã‚€
 	int widthImg, heightImg, numColCh;
-	stbi_set_flip_vertically_on_load(true);	// ‚’¼”½“]
+	stbi_set_flip_vertically_on_load(true);	// å‚ç›´åè»¢
 	unsigned char* bytes = stbi_load(image,
 		&widthImg,
 		&heightImg,
 		&numColCh,
 		0);
 
-	// ƒeƒNƒXƒ`ƒƒ‚ğì¬
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä½œæˆ
 	glGenTextures(1, &ID);
 
-	// ƒeƒNƒXƒ`ƒƒ‚ÌƒXƒƒbƒg–¼‚ğw’è
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ã‚¹ãƒ­ãƒƒãƒˆåã‚’æŒ‡å®š
 	glActiveTexture(slot);
 
-	// ƒeƒNƒXƒ`ƒƒ‚ğ—LŒø‰»
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æœ‰åŠ¹åŒ–
 	glBindTexture(texType, ID);
 
-	// ƒeƒNƒXƒ`ƒƒ‚Ì•âŠÔ•û–@(GL_NEAREST: Å‹ß–T–@)
-	glTexParameteri(texType, GL_TEXTURE_MIN_FILTER, GL_NEAREST);	// k¬‚³‚ê‚éê‡
-	glTexParameteri(texType, GL_TEXTURE_MAG_FILTER, GL_NEAREST);	// Šg‘å‚³‚ê‚éê‡
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è£œé–“æ–¹æ³•(GL_NEAREST: æœ€è¿‘å‚æ³•)
+	glTexParameteri(texType, GL_TEXTURE_MIN_FILTER, GL_NEAREST);	// ç¸®å°ã•ã‚Œã‚‹å ´åˆ
+	glTexParameteri(texType, GL_TEXTURE_MAG_FILTER, GL_NEAREST);	// æ‹¡å¤§ã•ã‚Œã‚‹å ´åˆ
 
-	// ƒeƒNƒXƒ`ƒƒÀ•WŠO‚ÌƒeƒNƒXƒ`ƒƒ‚Ìˆµ‚¢•û‚ğw’è(GL_REPEAT: ŒJ‚è•Ô‚µ)
-	glTexParameteri(texType, GL_TEXTURE_WRAP_S, GL_REPEAT);	// s²(àx²)
-	glTexParameteri(texType, GL_TEXTURE_WRAP_T, GL_REPEAT);	// t²(ày²)
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™å¤–ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®æ‰±ã„æ–¹ã‚’æŒ‡å®š(GL_REPEAT: ç¹°ã‚Šè¿”ã—)
+	glTexParameteri(texType, GL_TEXTURE_WRAP_S, GL_REPEAT);	// sè»¸(â‰’xè»¸)
+	glTexParameteri(texType, GL_TEXTURE_WRAP_T, GL_REPEAT);	// tè»¸(â‰’yè»¸)
 
-	// GPU‚ÉƒeƒNƒXƒ`ƒƒƒf[ƒ^‚ğ“n‚·
+	// GPUã«ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ‡ãƒ¼ã‚¿ã‚’æ¸¡ã™
 	glTexImage2D(texType, 0, GL_RGBA, widthImg, heightImg, 0, format, pixelType, bytes);
 
-	// ƒ~ƒbƒvƒ}ƒbƒv‚ğİ’è
+	// ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ã‚’è¨­å®š
 	glGenerateMipmap(texType);
 
-	// ‰æ‘œ‚Ì”jŠü
+	// ç”»åƒã®ç ´æ£„
 	stbi_image_free(bytes);
 
-	// ƒeƒNƒXƒ`ƒƒ‚Ì–³Œø‰»
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ç„¡åŠ¹åŒ–
 	glBindTexture(texType, 0);
 }
 
-// uniform•Ï”‚É‘ã“ü(ƒVƒF[ƒ_[‚Éƒf[ƒ^‚ğ“n‚·)
+// uniformå¤‰æ•°ã«ä»£å…¥(ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã«ãƒ‡ãƒ¼ã‚¿ã‚’æ¸¡ã™)
 void Texture::texUnit(Shader& shader, const char* uniform, GLuint unit) {
-	// uniform•Ï”‚Ì¯•Êq‚ğ“¾‚é
+	// uniformå¤‰æ•°ã®è­˜åˆ¥å­ã‚’å¾—ã‚‹
 	GLuint texUni = glGetUniformLocation(shader.ID, uniform);
 
-	// ƒVƒF[ƒ_[ƒvƒƒOƒ‰ƒ€‚ğ—LŒø‰»
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’æœ‰åŠ¹åŒ–
 	shader.Activate();
 
-	// ƒVƒF[ƒ_[‚Éƒf[ƒ^‚ğ“n‚·
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã«ãƒ‡ãƒ¼ã‚¿ã‚’æ¸¡ã™
 	glUniform1i(texUni, unit);
 }
 
 void Texture::Bind() {
-	glBindTexture(type, ID);	// —LŒø‰»
+	glBindTexture(type, ID);	// æœ‰åŠ¹åŒ–
 }
 
 void Texture::Unbind() {
-	glBindTexture(type, 0);	// –³Œø‰»
+	glBindTexture(type, 0);	// ç„¡åŠ¹åŒ–
 }
 
 void Texture::Delete() {
-	glDeleteTextures(1, &ID);	// íœ
+	glDeleteTextures(1, &ID);	// å‰Šé™¤
 }

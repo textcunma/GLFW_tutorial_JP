@@ -1,10 +1,10 @@
-#version 330 core	// GLSLƒo[ƒWƒ‡ƒ“w’è(version 3.30)
+#version 330 core
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec3 aColor;
 layout (location = 2) in vec2 aTex;
 
 out vec3 color;
-out vec2 texCoord;	// ƒeƒNƒXƒ`ƒƒÀ•W
+out vec2 texCoord;	// ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™
 
 uniform float scale;
 

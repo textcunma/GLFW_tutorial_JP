@@ -1,114 +1,114 @@
 #include"Camera.h"
 
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 Camera::Camera(int width, int height, glm::vec3 position) {
 	Camera::width = width;
 	Camera::height = height;
 	Position = position;
 }
 
-// •ÏŠ·s—ñì¬
-void Camera::Matrix(float FOVdeg,			// ‹–ìŠp
-				float nearPlane,		// ‘O•ûƒNƒŠƒbƒv–Ê
-				float farPlane,		// Œã•ûƒNƒŠƒbƒv–Ê
+// å¤‰æ›è¡Œåˆ—ä½œæˆ
+void Camera::Matrix(float FOVdeg,			// è¦–é‡è§’
+				float nearPlane,		// å‰æ–¹ã‚¯ãƒªãƒƒãƒ—é¢
+				float farPlane,		// å¾Œæ–¹ã‚¯ãƒªãƒƒãƒ—é¢
 				Shader& shader,
 				const char* uniform) {
 
-	// ‰Šú‰»
-	glm::mat4 view = glm::mat4(1.0f);		// ƒrƒ…[•ÏŠ·s—ñ
-	glm::mat4 projection = glm::mat4(1.0f);	// “Š‰e•ÏŠ·s—ñ
+	// åˆæœŸåŒ–
+	glm::mat4 view = glm::mat4(1.0f);		// ãƒ“ãƒ¥ãƒ¼å¤‰æ›è¡Œåˆ—
+	glm::mat4 projection = glm::mat4(1.0f);	// æŠ•å½±å¤‰æ›è¡Œåˆ—
 
-	// ƒJƒƒ‰ˆÊ’u o—Í
+	// ã‚«ãƒ¡ãƒ©ä½ç½® å‡ºåŠ›
 	std::cout << "(" << Position.x << "," << \
 		Position.y << "," << Position.z << ")" << std::endl;
 
-	// ƒrƒ…[•ÏŠ·s—ñ‚ğì¬
+	// ãƒ“ãƒ¥ãƒ¼å¤‰æ›è¡Œåˆ—ã‚’ä½œæˆ
 	view = glm::lookAt(Position, Position + Orientation, Up);
 
-	// “Š‰e•ÏŠ·s—ñ‚ğì¬
+	// æŠ•å½±å¤‰æ›è¡Œåˆ—ã‚’ä½œæˆ
 	projection = glm::perspective(glm::radians(FOVdeg), 
 						(float)(width / height), nearPlane, farPlane);
 
-	// uniform•Ï”(camMatrix)‚ÌƒAƒNƒZƒX‚·‚é‚½‚ß‚Ìƒƒ‚ƒŠˆÊ’u‚ğæ“¾
+	// uniformå¤‰æ•°(camMatrix)ã®ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹ãŸã‚ã®ãƒ¡ãƒ¢ãƒªä½ç½®ã‚’å–å¾—
 	GLuint uniID = glGetUniformLocation(shader.ID, uniform);
 
-	// uniform•Ï”(camMatrix)‚É’l‚ğ‘ã“ü
+	// uniformå¤‰æ•°(camMatrix)ã«å€¤ã‚’ä»£å…¥
 	glUniformMatrix4fv(uniID, 1, GL_FALSE, glm::value_ptr(projection * view));
 }
 
-// ƒJƒƒ‰‘€ì“ü—Í
+// ã‚«ãƒ¡ãƒ©æ“ä½œå…¥åŠ›
 void Camera::Inputs(GLFWwindow* window) {
-	// ‘Oi
+	// å‰é€²
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
 		Position += speed * Orientation;
 	}
-	// Œãi
+	// å¾Œé€²
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
 		Position += speed * -Orientation;
 	}
-	// ¶ˆÚ“®
+	// å·¦ç§»å‹•
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
 		Position += speed * -glm::normalize(glm::cross(Orientation, Up));	
 	}
-	// ‰EˆÚ“®
+	// å³ç§»å‹•
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
 		Position += speed * glm::normalize(glm::cross(Orientation, Up));	
 	}
-	// ãˆÚ“®
+	// ä¸Šç§»å‹•
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
 		Position += speed * Up;
 	}
-	// ‰ºˆÚ“®
+	// ä¸‹ç§»å‹•
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
 		Position += speed * -Up;
 	}
-	//@•Ï‰»‘¬“x‚ğ•ÏX
+	//ã€€å¤‰åŒ–é€Ÿåº¦ã‚’å¤‰æ›´
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
 		speed = 0.4f;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE) {
 		speed = 0.1f;
 	}
-	// ¶ƒNƒŠƒbƒN‚ª‰Ÿ‚µ‚½ê‡
+	// å·¦ã‚¯ãƒªãƒƒã‚¯ãŒæŠ¼ã—ãŸå ´åˆ
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-		// ƒJ[ƒ\ƒ‹‚ğ‰B‚·
+		// ã‚«ãƒ¼ã‚½ãƒ«ã‚’éš ã™
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);	
 
 		if (firstClick) {
-			// ƒJ[ƒ\ƒ‹‚ğ‰æ–Ê’†‰›‚ÉˆÚ“®
+			// ã‚«ãƒ¼ã‚½ãƒ«ã‚’ç”»é¢ä¸­å¤®ã«ç§»å‹•
 			glfwSetCursorPos(window, (width / 2), (height / 2));	
 			firstClick = false;
 		}
 
-		// ƒJ[ƒ\ƒ‹‚ÌÀ•W‚ğæ“¾
+		// ã‚«ãƒ¼ã‚½ãƒ«ã®åº§æ¨™ã‚’å–å¾—
 		double mouseX;
 		double mouseY;
 		glfwGetCursorPos(window, &mouseX, &mouseY);
 
-		// ƒJ[ƒ\ƒ‹‚ÌÀ•W‚©‚çƒJƒƒ‰‚ÌŠp“x‚ğŒvZ
-		float rotX = sensitivity * (float)(mouseY - (height / 2)) / height;	// ³‹K‰»•Ï‰»—Ê
+		// ã‚«ãƒ¼ã‚½ãƒ«ã®åº§æ¨™ã‹ã‚‰ã‚«ãƒ¡ãƒ©ã®è§’åº¦ã‚’è¨ˆç®—
+		float rotX = sensitivity * (float)(mouseY - (height / 2)) / height;	// æ­£è¦åŒ–å¤‰åŒ–é‡
 		float rotY = sensitivity * (float)(mouseX - (width / 2)) / width;
 
-		// x²‚Ì‰ñ“]‚ğŒvZ
+		// xè»¸ã®å›è»¢ã‚’è¨ˆç®—
 		glm::vec3 newOrientation = glm::rotate(Orientation,
 												glm::radians(-rotX),
 												glm::normalize(glm::cross(Orientation, Up)));
 
-		// x²•ûŒü‚Ì‰ñ“]‚É§ŒÀ‚ğ‚©‚¯‚é
+		// xè»¸æ–¹å‘ã®å›è»¢ã«åˆ¶é™ã‚’ã‹ã‘ã‚‹
 		if (!((glm::angle(newOrientation, Up) <= glm::radians(5.0f)) or
 			(glm::angle(newOrientation, -Up) <= glm::radians(5.0f)))) {
-			Orientation = newOrientation;	// ‹–—e”ÍˆÍŠO‚Å‚ ‚ê‚Î–ß‚·
+			Orientation = newOrientation;	// è¨±å®¹ç¯„å›²å¤–ã§ã‚ã‚Œã°æˆ»ã™
 		}
 
-		// y²‚Ì‰ñ“]‚ğŒvZ
+		// yè»¸ã®å›è»¢ã‚’è¨ˆç®—
 		Orientation = glm::rotate(Orientation, glm::radians(-rotY), Up);
 
-		// ƒJ[ƒ\ƒ‹‚ğ‰æ–Ê’†‰›‚ÉˆÚ“®
+		// ã‚«ãƒ¼ã‚½ãƒ«ã‚’ç”»é¢ä¸­å¤®ã«ç§»å‹•
 		glfwSetCursorPos(window, (width / 2), (height / 2));				
 
 	}
 	else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
-		// ƒJ[ƒ\ƒ‹‚ğ‰B‚³‚È‚¢
+		// ã‚«ãƒ¼ã‚½ãƒ«ã‚’éš ã•ãªã„
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		firstClick = true;
 	}

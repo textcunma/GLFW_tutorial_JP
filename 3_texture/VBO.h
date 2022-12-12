@@ -5,15 +5,15 @@
 
 class VBO {
 public:
-	// EBO‚ÌID‚ğŠi”[‚·‚é”z—ñ‚Ìƒ|ƒCƒ“ƒ^
+	// EBOã®IDã‚’æ ¼ç´ã™ã‚‹é…åˆ—ã®ãƒã‚¤ãƒ³ã‚¿
 	GLuint ID;
 
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	VBO(GLfloat* vertices, GLsizeiptr size);
 
-	void Bind();	// —LŒø‰»
-	void Unbind();	// –³Œø‰»
-	void Delete();	// íœ
+	void Bind();	// æœ‰åŠ¹åŒ–
+	void Unbind();	// ç„¡åŠ¹åŒ–
+	void Delete();	// å‰Šé™¤
 };
 
 #endif

@@ -8,7 +8,7 @@ layout (location = 3) in vec3 aNormal;
 out vec3 color;
 out vec2 texCoord;
 out vec3 Normal;
-out vec3 crntPos;	// ワールド座標系の被写体の位置
+out vec3 crntPos;	// 繝ｯ繝ｼ繝ｫ繝牙ｺｧ讓咏ｳｻ縺ｮ陲ｫ蜀吩ｽ薙�ｮ菴咲ｽｮ
 
 uniform mat4 camMatrix;
 uniform mat4 model;

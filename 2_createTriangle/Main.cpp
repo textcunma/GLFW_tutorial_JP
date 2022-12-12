@@ -1,4 +1,4 @@
-﻿#include<iostream>
+#include<iostream>
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
 
@@ -9,11 +9,11 @@
 
 // 頂点情報(頂点位置と頂点色)
 GLfloat vertices[] = {
-	// 座標情報										// 色情報
+	// 座標情報									// 色情報
 	-0.5f,	-0.5f * float(sqrt(3)) / 3,		0.0f,	0.8f, 0.3f, 0.02f,
 	0.5f,	-0.5f * float(sqrt(3)) / 3,		0.0f,	0.8f, 0.3f, 0.02f,
 	0.0f,	0.5f * float(sqrt(3)) * 2 / 3,	0.0f,	1.0f, 0.6f, 0.32f,
-	-0.25f, 0.5f * float(sqrt(3)) / 6,		0.0f,	0.9f, 0.45f, 0.17f,
+	-0.25f, 	0.5f * float(sqrt(3)) / 6,		0.0f,	0.9f, 0.45f, 0.17f,
 	0.25f,	0.5f * float(sqrt(3)) / 6,		0.0f,	0.9f, 0.45f, 0.17f,
 	0.0f,	-0.5f * float(sqrt(3)) / 3,		0.0f,	0.8f, 0.3f, 0.02f
 };
@@ -22,7 +22,7 @@ GLfloat vertices[] = {
 GLuint indices[] = {
 	0, 3, 5,	// 三角形(左下)
 	3, 2, 4,	// 三角形(右下)
-	5, 4, 1		// 三角形(上部)
+	5, 4, 1	// 三角形(上部)
 };
 
 const unsigned int width = 800;    // ウィンドウ幅

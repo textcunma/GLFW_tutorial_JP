@@ -12,22 +12,22 @@
 #include"Texture.h"
 #include"shaderClass.h"
 
-// ’¸“_î•ñ
+// é ‚ç‚¹æƒ…å ±
 GLfloat vertices[] = {
-	// À•Wî•ñ				Fî•ñ				@@ƒeƒNƒXƒ`ƒƒÀ•W		–@ü
+	// åº§æ¨™æƒ…å ±				è‰²æƒ…å ±				ã€€ã€€ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™		æ³•ç·š
 	-1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	0.0f,	0.0f,	1.0f,	0.0f,
 	-1.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	1.0f,	0.0f,	1.0f,	0.0f,
 	1.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	0.0f,	1.0f,	1.0f,	0.0f,	1.0f,	0.0f,
 	1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	0.0f,	1.0f,	0.0f,	0.0f,	1.0f,	0.0f
 };
 
-// ’¸“_ƒCƒ“ƒfƒbƒNƒX
+// é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 GLuint indices[] = {
 	0, 1, 2,
 	0, 2, 3
 };
 
-// ŒõŒ¹’¸“_
+// å…‰æºé ‚ç‚¹
 GLfloat lightVertices[] = {
 	-0.1f, -0.1f, 0.1f,
 	-0.1f, -0.1f, -0.1f,
@@ -39,7 +39,7 @@ GLfloat lightVertices[] = {
 	0.1f, 0.1f, 0.1f
 };
 
-// ŒõŒ¹’¸“_ƒCƒ“ƒfƒbƒNƒX
+// å…‰æºé ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 GLuint lightIndices[] = {
 	0, 1, 2,
 	0, 2, 3,
@@ -55,21 +55,21 @@ GLuint lightIndices[] = {
 	4, 6, 7
 };
 
-const unsigned int width = 800;    // ƒEƒBƒ“ƒhƒE•
-const unsigned int height = 800;   // ƒEƒBƒ“ƒhƒE‚‚³
+const unsigned int width = 800;    // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å¹…
+const unsigned int height = 800;   // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦é«˜ã•
 
 int main() {
-	// GLFW‰Šú‰»
+	// GLFWåˆæœŸåŒ–
 	glfwInit();
 
-	// OpenGL ƒo[ƒWƒ‡ƒ“3.3w’è
+	// OpenGL ãƒãƒ¼ã‚¸ãƒ§ãƒ³3.3æŒ‡å®š
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
-	// ƒRƒAƒvƒƒtƒ@ƒCƒ‹‚ğİ’è
+	// ã‚³ã‚¢ãƒ—ãƒ­ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¨­å®š
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	// ƒEƒBƒ“ƒhƒE¶¬
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ç”Ÿæˆ
 	GLFWwindow* window = \
 		glfwCreateWindow(width, height, "GLFW Tutorial", NULL, NULL);
 
@@ -79,88 +79,88 @@ int main() {
 		return -1;
 	}
 
-	// OpenGL‚ª•`‰æ‚·‚éƒEƒBƒ“ƒhƒE‚ğw’è
+	// OpenGLãŒæç”»ã™ã‚‹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’æŒ‡å®š
 	glfwMakeContextCurrent(window);
 
-	// GLAD“Ç‚İ‚İ
+	// GLADèª­ã¿è¾¼ã¿
 	gladLoadGL();
 
-	// ƒEƒBƒ“ƒhƒEŠJnˆÊ’u‚ğw’è
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦é–‹å§‹ä½ç½®ã‚’æŒ‡å®š
 	glViewport(0, 0, width, height);
 
-	// ƒVƒF[ƒ_[ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
 	Shader shaderProgram("./6_createLight/default.vert", "./6_createLight/default.frag");
 	
-	// VAO‚ğì¬, —LŒø‰»
+	// VAOã‚’ä½œæˆ, æœ‰åŠ¹åŒ–
 	VAO VAO1;
 	VAO1.Bind();
 
-	// VBO‚ğì¬, —LŒø‰», ’¸“_ƒf[ƒ^‚ğİ’è
+	// VBOã‚’ä½œæˆ, æœ‰åŠ¹åŒ–, é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®š
 	VBO VBO1(vertices, sizeof(vertices));
 
-	// EBO‚ğì¬, —LŒø‰», ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^‚ğİ’è
+	// EBOã‚’ä½œæˆ, æœ‰åŠ¹åŒ–, ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®š
 	EBO EBO1(indices, sizeof(indices));
 
-	// VBO‚ğ˜AŒg(’¸“_ˆÊ’u, ’¸“_F, ƒeƒNƒXƒ`ƒƒÀ•W, –@ü)
-	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)0);					// ’¸“_
-	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 11 * sizeof(float), (void*)(3 * sizeof(float)));	// F
-	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));	// ƒeƒNƒXƒ`ƒƒ
-	VAO1.LinkAttrib(VBO1, 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float)));	// –@ü
+	// VBOã‚’é€£æº(é ‚ç‚¹ä½ç½®, é ‚ç‚¹è‰², ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™, æ³•ç·š)
+	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)0);					// é ‚ç‚¹
+	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 11 * sizeof(float), (void*)(3 * sizeof(float)));	// è‰²
+	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));	// ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	VAO1.LinkAttrib(VBO1, 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float)));	// æ³•ç·š
 
-	// VAO, VBO, EBO‚ğ–³Œø‰»
+	// VAO, VBO, EBOã‚’ç„¡åŠ¹åŒ–
 	VAO1.Unbind();
 	VBO1.Unbind();
 	EBO1.Unbind();
 
-	// Œõ‚ÉŠÖ‚·‚éƒVƒF[ƒ_[“Ç‚İ‚İ
+	// å…‰ã«é–¢ã™ã‚‹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼èª­ã¿è¾¼ã¿
 	Shader lightShader("./6_createLight/light.vert", "./6_createLight/light.frag");
 
-	// Œõ‚ÉŠÖ‚·‚éVAO‚ğì¬, —LŒø‰»
+	// å…‰ã«é–¢ã™ã‚‹VAOã‚’ä½œæˆ, æœ‰åŠ¹åŒ–
 	VAO lightVAO;
 	lightVAO.Bind();
 
-	// Œõ‚ÉŠÖ‚·‚éVBO‚ğì¬, —LŒø‰», ’¸“_ƒf[ƒ^‚ğİ’è
+	// å…‰ã«é–¢ã™ã‚‹VBOã‚’ä½œæˆ, æœ‰åŠ¹åŒ–, é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®š
 	VBO lightVBO(lightVertices, sizeof(lightVertices));
 
-	// Œõ‚ÉŠÖ‚·‚éEBO‚ğì¬, —LŒø‰», ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^‚ğİ’è
+	// å…‰ã«é–¢ã™ã‚‹EBOã‚’ä½œæˆ, æœ‰åŠ¹åŒ–, ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®š
 	EBO lightEBO(lightIndices, sizeof(lightIndices));
 
-	// Œõ‚ÉŠÖ‚·‚éVBO‚ğ˜AŒg(’¸“_ˆÊ’u)
+	// å…‰ã«é–¢ã™ã‚‹VBOã‚’é€£æº(é ‚ç‚¹ä½ç½®)
 	lightVAO.LinkAttrib(lightVBO, 0, 3, GL_FLOAT, 3 * sizeof(float), (void*)0);
 	
-	// Œõ‚ÉŠÖ‚·‚éVAO, VBO, EBO‚ğ–³Œø‰»
+	// å…‰ã«é–¢ã™ã‚‹VAO, VBO, EBOã‚’ç„¡åŠ¹åŒ–
 	lightVAO.Unbind();
 	lightVBO.Unbind();
 	lightEBO.Unbind();
 
-	// ŒõŒ¹‚ÌF‚ÆˆÊ’u
+	// å…‰æºã®è‰²ã¨ä½ç½®
 	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
 
-	// ƒ‚ƒfƒ‹•ÏŠ·s—ñ(ŒõŒ¹)
+	// ãƒ¢ãƒ‡ãƒ«å¤‰æ›è¡Œåˆ—(å…‰æº)
 	glm::mat4 lightModel = glm::mat4(1.0f);
 	lightModel = glm::translate(lightModel, lightPos);
 
-	// ”íÊ‘Ì‚ÌˆÊ’u
+	// è¢«å†™ä½“ã®ä½ç½®
 	glm::vec3 objectPos = glm::vec3(0.0f, 0.0f, 0.0f);
 
-	// ƒ‚ƒfƒ‹•ÏŠ·s—ñ(”íÊ‘Ì)
+	// ãƒ¢ãƒ‡ãƒ«å¤‰æ›è¡Œåˆ—(è¢«å†™ä½“)
 	glm::mat4 objectModel = glm::mat4(1.0f);
 	objectModel = glm::translate(objectModel, objectPos);
 
-	// Œõ‚ÉŠÖ‚·‚éƒVƒF[ƒ_[—LŒø‰»
+	// å…‰ã«é–¢ã™ã‚‹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼æœ‰åŠ¹åŒ–
 	lightShader.Activate();
 
-	// unifrom•Ï”(model)‚Éƒ‚ƒfƒ‹•ÏŠ·s—ñ‚ğ“n‚·
+	// unifromå¤‰æ•°(model)ã«ãƒ¢ãƒ‡ãƒ«å¤‰æ›è¡Œåˆ—ã‚’æ¸¡ã™
 	glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"),	// vert
 		1, GL_FALSE, glm::value_ptr(lightModel));
 	glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"),		// frag
 		lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 
-	// ƒVƒF[ƒ_[—LŒø‰»
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼æœ‰åŠ¹åŒ–
 	shaderProgram.Activate();
 
-	// unifrom•Ï”(model)‚Éƒ‚ƒfƒ‹•ÏŠ·s—ñ‚ğ“n‚·
+	// unifromå¤‰æ•°(model)ã«ãƒ¢ãƒ‡ãƒ«å¤‰æ›è¡Œåˆ—ã‚’æ¸¡ã™
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1,	// vert
 		GL_FALSE, glm::value_ptr(objectModel));
 	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"),	// frag
@@ -168,82 +168,82 @@ int main() {
 	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"),		// frag
 		lightPos.x, lightPos.y, lightPos.z);
 
-	// ŠgU”½Ëƒ}ƒbƒv
+	// æ‹¡æ•£åå°„ãƒãƒƒãƒ—
 	Texture tileTex("./6_createLight/container2.png", \
 		GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE);
 	tileTex.texUnit(shaderProgram, "tex0", 0);
 
-	// ƒXƒyƒLƒ…ƒ‰[ƒ}ƒbƒv
+	// ã‚¹ãƒšã‚­ãƒ¥ãƒ©ãƒ¼ãƒãƒƒãƒ—
 	Texture tileSpec("./6_createLight/container2_specular.png", \
 		GL_TEXTURE_2D, 1, GL_RED, GL_UNSIGNED_BYTE);
 	tileSpec.texUnit(shaderProgram, "tex1", 1);
 
-	// ƒfƒvƒXƒeƒXƒg‚Ì—LŒø‰»
+	// ãƒ‡ãƒ—ã‚¹ãƒ†ã‚¹ãƒˆã®æœ‰åŠ¹åŒ–
 	glEnable(GL_DEPTH_TEST);
 
-	// ‰æ–Ê‚ÌXV•p“xİ’è(1•b‚É‚Â‚«1‰ñXV)
+	// ç”»é¢ã®æ›´æ–°é »åº¦è¨­å®š(1ç§’ã«ã¤ã1å›æ›´æ–°)
 	glfwSwapInterval(1);
 
-	// ƒJƒƒ‰İ’è
+	// ã‚«ãƒ¡ãƒ©è¨­å®š
 	Camera camera(width, height, glm::vec3(0.0f, 2.0f, 2.0f));
 
-	// ƒƒCƒ“ƒ‹[ƒv
+	// ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—
 	while (glfwWindowShouldClose(window) == GL_FALSE) {
-		// ”wŒiFw’è	
+		// èƒŒæ™¯è‰²æŒ‡å®š	
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 
-		// ‰æ–Ê‚ğ‰Šú‰»(Fƒoƒbƒtƒ@, ƒfƒvƒXƒoƒbƒtƒ@‚ğ‰Šú‰»)
+		// ç”»é¢ã‚’åˆæœŸåŒ–(è‰²ãƒãƒƒãƒ•ã‚¡, ãƒ‡ãƒ—ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚’åˆæœŸåŒ–)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// ƒJƒƒ‰‘€ì“ü—Í
+		// ã‚«ãƒ¡ãƒ©æ“ä½œå…¥åŠ›
 		camera.Inputs(window);
 
-		// •ÏŠ·s—ñì¬
+		// å¤‰æ›è¡Œåˆ—ä½œæˆ
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
-		// ƒVƒF[ƒ_ƒvƒƒOƒ‰ƒ€‚Ì—LŒø‰»
+		// ã‚·ã‚§ãƒ¼ãƒ€ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®æœ‰åŠ¹åŒ–
 		shaderProgram.Activate();
 
-		// uniform•Ï”(camPos)‚ÉƒJƒƒ‰ˆÊ’uÀ•W‚ğ‘ã“ü
+		// uniformå¤‰æ•°(camPos)ã«ã‚«ãƒ¡ãƒ©ä½ç½®åº§æ¨™ã‚’ä»£å…¥
 		glUniform3f(glGetUniformLocation(shaderProgram.ID, "camPos"),	// frag
 			camera.Position.x, camera.Position.y, camera.Position.z);
 
-		// uniform•Ï”(camMatrix)‚Éƒrƒ…[E“Š‰e•ÏŠ·‚Ì‡¬s—ñ‚ğ‘ã“ü
+		// uniformå¤‰æ•°(camMatrix)ã«ãƒ“ãƒ¥ãƒ¼ãƒ»æŠ•å½±å¤‰æ›ã®åˆæˆè¡Œåˆ—ã‚’ä»£å…¥
 		camera.Matrix(shaderProgram, "camMatrix");
 
-		// ƒeƒNƒXƒ`ƒƒ‚ğ—LŒø‰»
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æœ‰åŠ¹åŒ–
 		tileTex.Bind();
 		//tileSpec.Bind();
 
-		// VAO‚ğ—LŒø‰»
+		// VAOã‚’æœ‰åŠ¹åŒ–
 		VAO1.Bind();
 
-		// backƒoƒbƒtƒ@‚É}Œ`‚ğ•`‰æ
+		// backãƒãƒƒãƒ•ã‚¡ã«å›³å½¢ã‚’æç”»
 		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
-		// Œõ‚ÉŠÖ‚·‚éƒVƒF[ƒ_[‚ğ—LŒø‰»
+		// å…‰ã«é–¢ã™ã‚‹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’æœ‰åŠ¹åŒ–
 		lightShader.Activate();
 
-		// uniform•Ï”(camMatrix)‚Éƒrƒ…[E“Š‰e•ÏŠ·‚Ì‡¬s—ñ‚ğ‘ã“ü
+		// uniformå¤‰æ•°(camMatrix)ã«ãƒ“ãƒ¥ãƒ¼ãƒ»æŠ•å½±å¤‰æ›ã®åˆæˆè¡Œåˆ—ã‚’ä»£å…¥
 		camera.Matrix(lightShader, "camMatrix");
 
-		// Œõ‚ÉŠÖ‚·‚éVAO‚ğ—LŒø‰»
+		// å…‰ã«é–¢ã™ã‚‹VAOã‚’æœ‰åŠ¹åŒ–
 		lightVAO.Bind();
 
-		// backƒoƒbƒtƒ@‚É}Œ`‚ğ•`‰æ
+		// backãƒãƒƒãƒ•ã‚¡ã«å›³å½¢ã‚’æç”»
 		glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
-		// ƒVƒF[ƒ_ƒvƒƒOƒ‰ƒ€‚Ì–³Œø‰»
+		// ã‚·ã‚§ãƒ¼ãƒ€ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ç„¡åŠ¹åŒ–
 		glUseProgram(0);
 
-		// ‰æ–Ê‚ğXV
+		// ç”»é¢ã‚’æ›´æ–°
 		glfwSwapBuffers(window);
 
-		// ƒ†[ƒU[‚©‚ç‚Ì“ü—ÍƒCƒxƒ“ƒg‚ğˆ—
+		// ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‹ã‚‰ã®å…¥åŠ›ã‚¤ãƒ™ãƒ³ãƒˆã‚’å‡¦ç†
 		glfwPollEvents();
 	}
 
-	// VAO, VBO, EBO, ƒeƒNƒXƒ`ƒƒ, ƒVƒF[ƒ_[ƒvƒƒOƒ‰ƒ€‚ğíœ
+	// VAO, VBO, EBO, ãƒ†ã‚¯ã‚¹ãƒãƒ£, ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’å‰Šé™¤
 	VAO1.Delete();
 	VBO1.Delete();
 	EBO1.Delete();
@@ -255,10 +255,10 @@ int main() {
 	shaderProgram.Delete();
 	lightShader.Delete();
 
-	// ƒEƒBƒ“ƒhƒE‚ÌÁ‹
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®æ¶ˆå»
 	glfwDestroyWindow(window);
 
-	// GLFW‚ÌI—¹ˆ—
+	// GLFWã®çµ‚äº†å‡¦ç†
 	glfwTerminate();
 	return 0;
 }

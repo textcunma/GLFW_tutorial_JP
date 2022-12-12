@@ -1,6 +1,6 @@
 #include"shaderClass.h"
 
-// ƒVƒF[ƒ_[ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 std::string get_file_contents(const char* filename) {
 	std::ifstream in(filename, std::ios::binary);
 	if (in) {
@@ -15,57 +15,57 @@ std::string get_file_contents(const char* filename) {
 	throw(errno);
 }
 
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 Shader::Shader(const char* vertexFile, const char* fragmentFile) {
-	// ƒVƒF[ƒ_[‚Ìƒ\[ƒXƒR[ƒh‚ğæ“¾
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã‚’å–å¾—
 	std::string vertexCode = get_file_contents(vertexFile);
 	std::string fragmentCode = get_file_contents(fragmentFile);
 
-	// stringŒ^‚ğchar*Œ^‚É•ÏŠ·
+	// stringå‹ã‚’char*å‹ã«å¤‰æ›
 	const char* vertexSource = vertexCode.c_str();
 	const char* fragmentSource = fragmentCode.c_str();
 
-	// ƒVƒF[ƒ_[ƒIƒuƒWƒFƒNƒg‚ğì¬
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆ
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-	// ƒVƒF[ƒ_[ƒIƒuƒWƒFƒNƒg‚Éƒ\[ƒXƒR[ƒh‚ğİ’è
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã‚’è¨­å®š
 	glShaderSource(vertexShader, 1, &vertexSource, NULL);
 	glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
 
-	// ƒ\[ƒXƒR[ƒh‚ğƒRƒ“ƒpƒCƒ‹
+	// ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã‚’ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
 	glCompileShader(vertexShader);
 	glCompileShader(fragmentShader);
 	compileErrors(vertexShader, "VERTEX");
 	compileErrors(fragmentShader, "FRAGMENT");
 
-	// ‹ó‚ÌƒvƒƒOƒ‰ƒ€ƒIƒuƒWƒFƒNƒg‚ğì¬
+	// ç©ºã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆ
 	ID = glCreateProgram();
 
-	// ’¸“_ƒVƒF[ƒ_[‚Æƒtƒ‰ƒOƒƒ“ƒgƒVƒF[ƒ_[‚ğŒ‹‡
+	// é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã¨ãƒ•ãƒ©ã‚°ãƒ¡ãƒ³ãƒˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’çµåˆ
 	glAttachShader(ID, vertexShader);
 	glAttachShader(ID, fragmentShader);
 
-	// ƒvƒƒOƒ‰ƒ€ƒIƒuƒWƒFƒNƒg‚ğƒŠƒ“ƒN(Às‰Â”\‚Èó‘Ô‚É‚·‚é)
+	// ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒªãƒ³ã‚¯(å®Ÿè¡Œå¯èƒ½ãªçŠ¶æ…‹ã«ã™ã‚‹)
 	glLinkProgram(ID);
 	compileErrors(ID, "PROGRAM");
 
-	// •s—v‚É‚È‚Á‚½ƒVƒF[ƒ_[‚ğíœ
+	// ä¸è¦ã«ãªã£ãŸã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’å‰Šé™¤
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 }
 
-// ƒVƒF[ƒ_[ƒvƒƒOƒ‰ƒ€‚ğ—LŒø‰»
+// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’æœ‰åŠ¹åŒ–
 void Shader::Activate() {
 	glUseProgram(ID);
 }
 
-// ƒVƒF[ƒ_[ƒvƒƒOƒ‰ƒ€‚ğíœ
+// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’å‰Šé™¤
 void Shader::Delete() {
 	glDeleteProgram(ID);
 }
 
-// ƒRƒ“ƒpƒCƒ‹ƒGƒ‰[ŒŸo
+// ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã‚¨ãƒ©ãƒ¼æ¤œå‡º
 void Shader::compileErrors(unsigned int shader, const char* type) {
 	GLint hasCompiled;
 	char infoLog[1024];

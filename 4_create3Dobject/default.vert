@@ -12,7 +12,7 @@ uniform mat4 view;
 uniform mat4 proj;
 
 void main(){
-	gl_Position = proj * view * model * vec4(aPos, 1.0);	// •ÏŠ·s—ñ‚ğ‹t‚Ì‡”Ô‚©‚ç‚©‚¯‚é‚Æ‚±‚ë‚ªƒ|ƒCƒ“ƒg
+	gl_Position = proj * view * model * vec4(aPos, 1.0);	// å¤‰æ›è¡Œåˆ—ã‚’é€†ã®é †ç•ªã‹ã‚‰ã‹ã‘ã‚‹ã¨ã“ã‚ãŒãƒã‚¤ãƒ³ãƒˆ
 	color = aColor;
 	texCoord = aTex;
 }

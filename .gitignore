@@ -4,6 +4,10 @@ Libraries
 x64
 .vs
 
+# 画像
+./6_createLight/container2.png
+./6_createLight/container2_specular.png
+
 # vscode
 *.vscode
 

@@ -22,8 +22,9 @@ OpenGLは3DCGを描画するための命令や処理を提供しない。命令�
 
 - フラグメントシェーダー<br>
 画面上の各ピクセルを処理するシェーダー。ピクセルの色を計算、テクスチャなどの画像情報を反映するために使用。
+     <img src="../assets/2_shader.gif"><br>
+     [図引用元](https://marina.sys.wakayama-u.ac.jp/~tokoi/summer/rasterizer.gif)
 
-     ![頂点シェーダーとフラグメントシェーダー](https://marina.sys.wakayama-u.ac.jp/~tokoi/summer/rasterizer.gif)
 
 ### シェーダーファイル
 3DCGを描画するためにGLSLで記述。
@@ -58,7 +59,8 @@ OpenGLは3DCGを描画するための命令や処理を提供しない。命令�
 
      `layout (location = 1) in vec3 aColor;`<br>
      location0番目が終って次に格納されている3要素を「aColor」としている。
-         ![バッファ配置](https://learnopengl.com/img/getting-started/vertex_attribute_pointer_interleaved.png)
+     <img src="../assets/2_offset.png"><br>
+     [図引用元](https://learnopengl.com/img/getting-started/vertex_attribute_pointer_interleaved.png)
      
      `out vec3 color;`<br>
      出力のattribute変数を定義。出力を3要素のベクトル「color」とする
@@ -195,7 +197,8 @@ GLSLで指示した入力データのインデックスと書式を設定。入�
      // 引数1: 属性インデックス
      ```
      下図の場合, 頂点情報のバイトオフセットは「0」, 色情報のバイトオフセットは「12」になる。今回は頂点情報のみなため、引数5で「0」を指定
-     ![バイトオフセット](https://learnopengl.com/img/getting-started/vertex_attribute_pointer_interleaved.png)
+     <img src="../assets/2_offset.png"><br>
+     [図引用元](https://learnopengl.com/img/getting-started/vertex_attribute_pointer_interleaved.png)
 
 9. VBOを無効化
 VBOを操作する工程8が終ったため、VBOを無効化。指定するバッファオブジェクトのバインドして「0」とすることで無効化。

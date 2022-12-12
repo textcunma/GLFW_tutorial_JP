@@ -4,10 +4,6 @@ Libraries
 x64
 .vs
 
-# 画像
-image\container2.png
-image\container2_specular.png
-
 # vscode
 *.vscode
 build

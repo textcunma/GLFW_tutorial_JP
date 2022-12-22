@@ -8,13 +8,16 @@
 #include<glm/gtc/type_ptr.hpp>
 #include<glm/gtx/rotate_vector.hpp>
 #include<glm/gtx/vector_angle.hpp>
+#include<glm/gtc/quaternion.hpp>
+#include<glm/gtx/quaternion.hpp>
+#include<glm/gtx/string_cast.hpp>
 
 #include"shaderClass.h"
 
 class Camera {
 public:
 	// カメラ位置
-	glm::vec3 Position;	// glm::vec3(0.0f, 0.0f, 2.0f)
+	glm::vec3 Position;	// glm::vec3(0.0f, 0.0f, 3.0f)
 
 	// カメラの視線ベクトル(正規化済)
 	glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -40,6 +43,18 @@ public:
 
 	// カメラ操作
 	void Inputs(GLFWwindow* window);
+
+private:
+	double start_mouseX;
+	double start_mouseY;
+	double currentTime;
+	double lastTime;
+	glm::mat4 viewMatrix;
+	glm::vec3 screen_to_vec(double p[2]);
+
+	void LeftClick(GLFWwindow* window);
+	void MiddleClick(GLFWwindow* window);
+	void Trackball(double p1[2], double p2[2]);	// 仮想トラックボール
 };
 
 #endif

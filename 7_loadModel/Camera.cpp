@@ -5,11 +5,6 @@ Camera::Camera(int width, int height, glm::vec3 position) {
 	Camera::width = width;
 	Camera::height = height;
 	Position = position;
-	start_mouseX = 0.0;
-	start_mouseY = 0.0;
-	glfwSetTime(0.0);
-	currentTime = 0.0f;
-	lastTime = glfwGetTime();
 }
 
 // 変換行列更新
@@ -20,11 +15,6 @@ void Camera::updateMatrix(float FOVdeg,
 	// 変換行列初期化
 	glm::mat4 view = glm::mat4(1.0f);		// ビュー変換行列
 	glm::mat4 projection = glm::mat4(1.0f);	// 投影変換行列
-
-	#ifndef DEBUG
-		// std::cout << glm::to_string(Position) << std::endl;
-		// std::cout << glm::to_string(Orientation) << std::endl;
-	#endif
 
 	// ビュー変換行列を作成
 	view = glm::lookAt(Position, Position + Orientation, Up);

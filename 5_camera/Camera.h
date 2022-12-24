@@ -49,12 +49,10 @@ private:
 	double start_mouseY;
 	double currentTime;
 	double lastTime;
-	glm::mat4 viewMatrix;
-	glm::vec3 screen_to_vec(double p[2]);
 
 	void LeftClick(GLFWwindow* window);
 	void MiddleClick(GLFWwindow* window);
-	void Trackball(double p1[2], double p2[2]);	// 仮想トラックボール
+	
 };
 
 #endif

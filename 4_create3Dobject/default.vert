@@ -5,7 +5,6 @@ layout (location = 2) in vec2 aTex;
 
 out vec3 color;
 out vec2 texCoord;
-uniform float scale;
 
 uniform mat4 model;
 uniform mat4 view;

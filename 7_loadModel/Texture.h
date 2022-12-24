@@ -10,6 +10,7 @@ public:
 	GLuint ID;		// テクスチャのIDを格納する配列のポインタ
 	const char* type;	// テクスチャの種類(2D or 3D)
 	GLuint unit;		// スロット番号
+	std::string path;	// テクスチャのパス名
 
 	// コンストラクタ
 	Texture(const char* image, 

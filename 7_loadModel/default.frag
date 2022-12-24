@@ -14,6 +14,16 @@ uniform vec4 lightColor;
 uniform vec3 lightPos;
 uniform vec3 camPos;
 
+uniform struct Material {
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+    float shininess;
+};
+
+uniform Material material;
+uniform bool existTexture;
+
 // 平行光源
 vec4 direcLight() {
 	vec3 normal = normalize(Normal);								// 法線(正規化済み)
@@ -98,8 +108,34 @@ vec4 spotLight() {
 						texture(specular0, texCoord).r * specular * inten) * lightColor;
 }
 
+vec4 NoTexture() {
+	vec3 normal = normalize(Normal);								// 法線(正規化済み)
+	vec3 lightDirection = normalize(vec3(1.0f, 1.0f, 0.0f));		// 光線(正規化済み)
+
+	vec3 lightColor = vec3(lightColor[0], lightColor[1], lightColor[2]);
+
+    // 環境光
+    vec3 ambient = lightColor * material.ambient;
+  	
+    // 拡散光
+	float diff = max(dot(normal, lightDirection), 0.0f);	
+    vec3 diffuse = lightColor * (diff * material.diffuse);
+    
+    // 鏡面反射光
+	vec3 viewDirection = normalize(camPos - crntPos);				// 視線ベクトル
+	vec3 reflectionDirection = reflect(-lightDirection, normal);	// 反射ベクトル
+    float specAmount = pow(max(dot(viewDirection, reflectionDirection), 0.0f), material.shininess);
+	vec3 specular = lightColor * specAmount * material.specular;
+        
+    return vec4(ambient + diffuse + specular, 1.0);
+}
+
 void main(){
-	// FragColor = direcLight();
-	FragColor = pointLight();
-	// FragColor = spotLight();
+	if (existTexture){
+		FragColor = pointLight();
+		// FragColor = spotLight();
+		// FragColor = direcLight();
+	} else {
+		FragColor = NoTexture();
+	}
 }

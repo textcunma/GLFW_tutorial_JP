@@ -9,10 +9,11 @@
 #include"EBO.h"
 #include"VBO.h"
 #include"Camera.h"
+#include"Material.h"
 #include"Texture.h"
 #include"shaderClass.h"
 
-// 頂点情報
+// 頂点情報(平面)
 GLfloat vertices[] = {
 	// 座標情報				色情報				　　テクスチャ座標		法線
 	-1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	0.0f,	0.0f,	1.0f,	0.0f,
@@ -21,8 +22,23 @@ GLfloat vertices[] = {
 	1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	0.0f,	1.0f,	0.0f,	0.0f,	1.0f,	0.0f
 };
 
-// 頂点インデックス
+// 頂点インデックス(平面)
 GLuint indices[] = {
+	0, 1, 2,
+	0, 2, 3
+};
+
+// 頂点情報(平面2)
+GLfloat vertices2[] = {
+	// 座標情報				色情報				　　テクスチャ座標		法線
+	-0.5f,	0.3f,	0.5f,	0.0f,	0.0f,	0.0f,	0.0f,	0.0f,	0.0f,	1.0f,	0.0f,
+	-0.5f,	0.3f,	-0.5f,	0.0f,	0.0f,	0.0f,	0.0f,	0.5f,	0.0f,	1.0f,	0.0f,
+	0.5f,	0.3f,	-0.5f,	0.0f,	0.0f,	0.0f,	0.5f,	0.5f,	0.0f,	1.0f,	0.0f,
+	0.5f,	0.3f,	0.5f,	0.0f,	0.0f,	0.0f,	0.5f,	0.0f,	0.0f,	1.0f,	0.0f
+};
+
+// 頂点インデックス(平面2)
+GLuint indices2[] = {
 	0, 1, 2,
 	0, 2, 3
 };
@@ -89,7 +105,7 @@ int main() {
 	glViewport(0, 0, width, height);
 
 	// シェーダーファイル読み込み
-	Shader shaderProgram("./6_createLight/default.vert", "./6_createLight/default.frag");
+	Shader shaderProgram("./default.vert", "./default.frag");
 	
 	// VAOを作成, 有効化
 	VAO VAO1;
@@ -112,8 +128,30 @@ int main() {
 	VBO1.Unbind();
 	EBO1.Unbind();
 
+	// シェーダーファイル読み込み
+	Shader shaderProgram2("./default2.vert", "./default2.frag");
+
+	// VAOを作成, 有効化
+	VAO VAO2;
+	VAO2.Bind();
+
+	// VBOを作成, 有効化, 頂点データを設定
+	VBO VBO2(vertices2, sizeof(vertices2));
+	VAO2.LinkAttrib(VBO2, 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)0);					// 頂点
+	VAO2.LinkAttrib(VBO2, 1, 3, GL_FLOAT, 11 * sizeof(float), (void*)(3 * sizeof(float)));	// 色
+	VAO2.LinkAttrib(VBO2, 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));	// テクスチャ
+	VAO2.LinkAttrib(VBO2, 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float)));	// 法線
+
+	// EBOを作成, 有効化, インデックスデータを設定
+	EBO EBO2(indices2, sizeof(indices2));
+
+	// VAO, VBO, EBOを無効化
+	VAO2.Unbind();
+	VBO2.Unbind();
+	EBO2.Unbind();
+
 	// 光に関するシェーダー読み込み
-	Shader lightShader("./6_createLight/light.vert", "./6_createLight/light.frag");
+	Shader lightShader("./light.vert", "./light.frag");
 
 	// 光に関するVAOを作成, 有効化
 	VAO lightVAO;
@@ -160,7 +198,7 @@ int main() {
 	// シェーダー有効化
 	shaderProgram.Activate();
 
-	// unifrom変数(model)にモデル変換行列を渡す
+	// unifrom変数に値を渡す
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1,	// vert
 		GL_FALSE, glm::value_ptr(objectModel));
 	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"),	// frag
@@ -178,6 +216,21 @@ int main() {
 		GL_TEXTURE_2D, 1, GL_RED, GL_UNSIGNED_BYTE);
 	tileSpec.texUnit(shaderProgram, "tex1", 1);
 
+	// シェーダー有効化
+	shaderProgram2.Activate();
+
+	// unifrom変数に値を渡す
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram2.ID, "model"), 1,	// vert
+		GL_FALSE, glm::value_ptr(objectModel));
+	glUniform3f(glGetUniformLocation(shaderProgram2.ID, "lightColor"),	// frag
+		lightColor.x, lightColor.y, lightColor.z);
+	glUniform3f(glGetUniformLocation(shaderProgram2.ID, "lightPos"),		// frag
+		lightPos.x, lightPos.y, lightPos.z);
+
+	// マテリアル
+	Material material("gold");
+	material.MaterialUnit(shaderProgram2);
+
 	// デプステストの有効化
 	glEnable(GL_DEPTH_TEST);
 
@@ -185,7 +238,7 @@ int main() {
 	glfwSwapInterval(1);
 
 	// カメラ設定
-	Camera camera(width, height, glm::vec3(0.0f, 2.0f, 2.0f));
+	Camera camera(width, height, glm::vec3(-1.8f, 2.0f, -0.9f));
 
 	// メインループ
 	while (glfwWindowShouldClose(window) == GL_FALSE) {
@@ -213,13 +266,27 @@ int main() {
 
 		// テクスチャを有効化
 		tileTex.Bind();
-		//tileSpec.Bind();
+		tileSpec.Bind();
 
 		// VAOを有効化
 		VAO1.Bind();
-
+		
 		// backバッファに図形を描画
 		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
+
+		// シェーダプログラムの有効化
+		shaderProgram2.Activate();
+
+		// uniform変数(camPos)にカメラ位置座標を代入
+		glUniform3f(glGetUniformLocation(shaderProgram2.ID, "camPos"),	// frag
+			camera.Position.x, camera.Position.y, camera.Position.z);
+
+		// uniform変数(camMatrix)にビュー・投影変換の合成行列を代入
+		camera.Matrix(shaderProgram2, "camMatrix");
+
+		//VAOを有効化,  backバッファに図形を描画
+		VAO2.Bind();
+		glDrawElements(GL_TRIANGLES, sizeof(indices2) / sizeof(int), GL_UNSIGNED_INT, 0);
 
 		// 光に関するシェーダーを有効化
 		lightShader.Activate();
@@ -247,12 +314,16 @@ int main() {
 	VAO1.Delete();
 	VBO1.Delete();
 	EBO1.Delete();
+	VAO2.Delete();
+	VBO2.Delete();
+	EBO2.Delete();
 	lightVAO.Delete();
 	lightVBO.Delete();
 	lightEBO.Delete();
 	tileTex.Delete();
 	tileSpec.Delete();
 	shaderProgram.Delete();
+	shaderProgram2.Delete();
 	lightShader.Delete();
 
 	// ウィンドウの消去

@@ -66,7 +66,7 @@ int main() {
 	glViewport(0, 0, width, height);
 
 	// シェーダーファイル読み込み
-	Shader shaderProgram("./5_camera/default.vert", "./5_camera/default.frag");
+	Shader shaderProgram("./default.vert", "./default.frag");
 
 	// VAOを作成, 有効化
 	VAO VAO1;
@@ -91,7 +91,7 @@ int main() {
 	EBO1.Unbind();
 
 	// テクスチャ設定
-	Texture Tex("../image/human.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	Texture Tex("../image/container2.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 
 	// デプステストの有効化
 	glEnable(GL_DEPTH_TEST);
@@ -100,7 +100,7 @@ int main() {
 	glfwSwapInterval(1);
 
 	// カメラ設定(カメラ位置指定)
-	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));	
+	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 3.0f));
 
 	// メインループ
 	while (glfwWindowShouldClose(window) == GL_FALSE) {

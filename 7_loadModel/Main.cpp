@@ -1,19 +1,6 @@
 #include"Mesh.h"
-
-// 頂点情報
-Vertex vertices[] = {
-	// 座標情報, 色情報, テクスチャ座標, 法線
-	Vertex{glm::vec3(-1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
-	Vertex{glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
-	Vertex{glm::vec3(1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
-	Vertex{glm::vec3(1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f)}
-};
-
-// 頂点インデックス
-GLuint indices[] = {
-	0, 1, 2,
-	0, 2, 3
-};
+#include"Model.h"
+#include"utils.h"
 
 // 光源頂点
 Vertex lightVertices[] = {
@@ -41,6 +28,14 @@ GLuint lightIndices[] = {
 	1, 4, 0,
 	4, 5, 6,
 	4, 6, 7
+};
+
+// マテリアル
+double materials[10] = {
+	0.24175f, 0.1995f, 0.0745f,
+	0.75164f, 0.60648f, 0.22648f,
+	0.628281f, 0.555802f, 0.366065f,
+	0.4f
 };
 
 const unsigned int width = 800;    // ウィンドウ幅
@@ -76,30 +71,14 @@ int main() {
 	// ウィンドウ開始位置を指定
 	glViewport(0, 0, width, height);
 
-	// テクスチャ
-	Texture textures[] {
-		Texture("../image/container2.png", \
-				"diffuse", 0, GL_RGBA, GL_UNSIGNED_BYTE),
-		Texture("../image/container2_specular.png", \
-				"specular", 1, GL_RED, GL_UNSIGNED_BYTE)
-	};
-
 	// シェーダーファイル読み込み
-	Shader shaderProgram("./7_createMeshclass/default.vert", "./7_createMeshclass/default.frag");
+	Shader shaderProgram("./default.vert", "./default.frag");
 
-	// 頂点,インデックス,テクスチャ座標のベクトルを作成
-	std::vector <Vertex> verts(vertices, \
-		vertices + sizeof(vertices) / sizeof(Vertex));
-	std::vector <GLuint> ind(indices, \
-		indices + sizeof(indices) / sizeof(GLuint));
-	std::vector <Texture> tex(textures, \
-		textures + sizeof(textures) / sizeof(Texture));
-
-	// 「floor」というMeshオブジェクトを作成
-	Mesh floor(verts, ind, tex);
+	// モデルを読み込む
+	Model model("../image/bunny.obj", "../image/");
 
 	// 光に関するシェーダー読み込み
-	Shader lightShader("./7_createMeshclass/light.vert", "./7_createMeshclass/light.frag");
+	Shader lightShader("./light.vert", "./light.frag");
 
 	// 光源頂点, 光源インデックスのベクトルを作成
 	std::vector <Vertex> lightVerts(lightVertices, \
@@ -107,8 +86,8 @@ int main() {
 	std::vector <GLuint> lightInd(lightIndices, \
 		lightIndices + sizeof(lightIndices) / sizeof(GLuint));
 
-	// 「light」というMeshオブジェクトを作成
-	Mesh light(lightVerts, lightInd, tex);
+	// lightを作成
+	Mesh light(lightVerts, lightInd);
 
 	// 光源の色と位置
 	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -145,6 +124,18 @@ int main() {
 	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), \
 		lightPos.x, lightPos.y, lightPos.z);
 
+
+	// もしテクスチャが無い場合はマテリアルを適用
+	if (!model.existTexture) {
+		Material material;
+		material.registerMaterial(materials);
+		material.MaterialUnit(shaderProgram);
+		glUniform1i(glGetUniformLocation(shaderProgram.ID, "existTexture"), 0);	// false
+	}
+	else {
+		glUniform1i(glGetUniformLocation(shaderProgram.ID, "existTexture"), 1);	// true
+	}
+
 	// デプステストの有効化
 	glEnable(GL_DEPTH_TEST);
 
@@ -153,6 +144,13 @@ int main() {
 
 	// カメラ設定
 	Camera camera(width, height, glm::vec3(0.0f, 2.0f, 2.0f));
+
+	// 画像保存用バッファ
+	unsigned char* image_data = (unsigned char*)malloc(width * height * 3);
+
+	// Enterキーの連続押しを避けるため
+	double lastTime = 0.0f;
+	double curTime = glfwGetTime();
 
 	// メインループ
 	while (!glfwWindowShouldClose(window)) {
@@ -168,8 +166,10 @@ int main() {
 		// 変換行列作成
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
-		// 被写体, 光源を描画
-		floor.Draw(shaderProgram, camera);
+		// 被写体を描画
+		model.Draw(shaderProgram, camera);
+
+		// 光源を描画
 		light.Draw(lightShader, camera);
 
 		// シェーダプログラムの無効化
@@ -178,6 +178,14 @@ int main() {
 		// 画面を更新
 		glfwSwapBuffers(window);
 
+		// Enterキーを押された場合、画像保存
+		curTime = glfwGetTime();
+		if ((curTime - lastTime > 1.0f) && (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS)) {
+			glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, image_data);
+			imageSave(image_data, width, height);
+			lastTime = curTime;
+		}
+
 		// ユーザーからの入力イベントを処理
 		glfwPollEvents();
 	}
@@ -185,6 +193,7 @@ int main() {
 	// シェーダープログラムを削除
 	shaderProgram.Delete();
 	lightShader.Delete();
+	stbi_image_free(image_data);
 
 	// ウィンドウの消去
 	glfwDestroyWindow(window);

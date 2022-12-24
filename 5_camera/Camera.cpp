@@ -5,8 +5,8 @@ Camera::Camera(int width, int height, glm::vec3 position) {
 	Camera::width = width;
 	Camera::height = height;
 	Position = position;
-	start_mouseX = 1.0 / width;
-	start_mouseY = 1.0 / height;
+	start_mouseX = 0.0;
+	start_mouseY = 0.0;
 	glfwSetTime(0.0);
 	currentTime = 0.0f;
 	lastTime = glfwGetTime();
@@ -23,14 +23,9 @@ void Camera::Matrix(float FOVdeg,			// 視野角
 	glm::mat4 view = glm::mat4(1.0f);		// ビュー変換行列
 	glm::mat4 projection = glm::mat4(1.0f);	// 投影変換行列
 
-	// カメラ位置 出力
-	#ifndef DEBUG
-		//std::cout << glm::to_string(Position) << std::endl;
-	#endif
-
 	// ビュー変換行列を生成
 	view = glm::lookAt(Position, Position + Orientation, Up);
-	
+
 	// 投影変換行列を作成
 	projection = glm::perspective(glm::radians(FOVdeg),
 		(float)(width / height), nearPlane, farPlane);
@@ -83,27 +78,48 @@ void Camera::LeftClick(GLFWwindow* window) {
 void Camera::MiddleClick(GLFWwindow* window) {
 	// カーソルの座標を取得
 	currentTime = glfwGetTime();
-	if (!firstClick) {
+	if (firstClick) {
 		glfwGetCursorPos(window, &start_mouseX, &start_mouseY);
+		firstClick = false;
+		return;
 	}
-	
+
 	// 30frameに1回更新
 	if (currentTime - lastTime > 1.0 / 30.0) {
 		double end_mouseX;
 		double end_mouseY;
 		glfwGetCursorPos(window, &end_mouseX, &end_mouseY);
 
-		if ((start_mouseX == end_mouseX) || (start_mouseY == end_mouseY)) {
-			return;
+		// マウス移動変位(相対量)
+		double dx = (end_mouseX - start_mouseX) / width;
+		double dy = (end_mouseY - start_mouseY) / height;
+
+		// マウス移動量(相対量)
+		double r = sqrt(dx * dx + dy * dy);
+
+		if (r != 0.0) {
+			// 回転角を計算
+			double half_radian = r * glm::pi<float>();
+
+			// 回転軸を計算
+			double axis_x = dy / r;
+			double axis_y = dx / r;
+			double axis_z = 0.0;
+			
+			// z軸を中心とした回転を表すクォータニオンなため、0.0
+			double r_sin = sin(half_radian);
+			glm::quat q = glm::quat(cos(half_radian), axis_x * r_sin, axis_y * r_sin, axis_z * r_sin);
+
+			// 位置・向き・上ベクトルをクォータニオンで更新
+			Position = q * Position;
+			Orientation = q * Orientation;
+			Up = q * Up;
+			
+			// マウス位置を更新
+			start_mouseX = end_mouseX;
+			start_mouseY = end_mouseY;
 		}
 
-		double in1[2] = { start_mouseX, start_mouseY };
-		double in2[2] = { end_mouseX, end_mouseY };
-
-		Trackball(in1, in2);
-
-		start_mouseX = end_mouseX;
-		start_mouseY = end_mouseY;
 		lastTime = currentTime;
 	}
 }
@@ -154,59 +170,4 @@ void Camera::Inputs(GLFWwindow* window) {
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		firstClick = true;
 	}
-}
-
-// スクリーン座標系から3D座標系に変換
-glm::vec3 Camera::screen_to_vec(double p[2]) {
-	double x = 2 * p[0] / width - 1;
-	double y = 1 - 2 * p[1] / height;
-	double z = 0.0;
-	double length = x * x + y * y;
-
-	// https://www.xarg.org/2021/07/trackball-rotation-using-quaternions/
-	if (0.5 >= length) {
-		z = sqrt(1 - length);
-	}
-	else {
-		z = 0.5 * sqrt(length);
-	}
-
-	return glm::normalize(glm::vec3(x, y, z));
-}
-
-void Camera::Trackball(double p1[2], double p2[2]) {
-	// スクリーン座標系から3D座標系に変換
-	glm::vec3 v1 = screen_to_vec(p1);
-	glm::vec3 v2 = screen_to_vec(p2);
-
-	// 2つのベクトル間の角度を計算
-	double angle = glm::acos(glm::dot(v1, v2));
-
-	auto dif = v2 - v1;
-	auto length = glm::length(dif);
-	angle = length;
-	std::cout << "length:  " << length << std::endl;
-	std::cout << "angle:  " << angle << std::endl;
-
-	// 2つのベクトル間の回転軸を計算
-	glm::vec3 axis = glm::normalize(glm::cross(v1, v2));
-
-	// axis = glm::vec3(dif.y / length, dif.x / length , 0.0);
-
-	#ifndef DEBUG
-		std::cout << "axis: " << glm::to_string(axis) << std::endl;
-	#endif
-
-	// 回転行列を生成
-	auto c = glm::cos(angle / 2);
-	auto s = glm::sin(angle / 2);
-
-	// 0除算を防ぐ
-	if (abs(s) < 0.0005f) {
-		return;
-	}
-
-	glm::quat q = glm::quat(c, s * axis[0], s * axis[1], s * axis[2]);
-	Position = q * Position;
-	Orientation = q * Orientation;
 }

@@ -34,6 +34,38 @@ Mesh::Mesh(std::vector <Vertex>& vertices,
 	EBO.Unbind();
 }
 
+// コンストラクタ(テクスチャが不要な物体のため)
+Mesh::Mesh(std::vector <Vertex>& vertices,
+	std::vector <GLuint>& indices) {
+
+	Mesh::vertices = vertices;
+	Mesh::indices = indices;
+
+	// VAOを有効化
+	VAO.Bind();
+
+	// VBOを作成, 有効化
+	VBO VBO(vertices);
+
+	// EBOを作成, 有効化
+	EBO EBO(indices);
+
+	// VBOを連携(頂点位置, 頂点色, テクスチャ座標, 法線)
+	VAO.LinkAttrib(VBO, 0, 3, GL_FLOAT, \
+		sizeof(Vertex), (void*)0);
+	VAO.LinkAttrib(VBO, 1, 3, GL_FLOAT, \
+		sizeof(Vertex), (void*)(3 * sizeof(float)));
+	VAO.LinkAttrib(VBO, 2, 3, GL_FLOAT, \
+		sizeof(Vertex), (void*)(6 * sizeof(float)));
+	VAO.LinkAttrib(VBO, 3, 2, GL_FLOAT, \
+		sizeof(Vertex), (void*)(9 * sizeof(float)));
+
+	// VAO, VBO, EBOを無効化
+	VAO.Unbind();
+	VBO.Unbind();
+	EBO.Unbind();
+}
+
 // メッシュ描画関数
 void Mesh::Draw(Shader& shader, Camera& camera)
 {

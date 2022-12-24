@@ -7,7 +7,7 @@ const unsigned int height = 800;   // ウィンドウ高さ
 
 int main() {
      // GLFW初期化
-	glfwInit();	
+	glfwInit();
 
 	// OpenGL バージョン3.3指定
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -46,6 +46,7 @@ int main() {
 
 	// メインループ
 	while (glfwWindowShouldClose(window) == GL_FALSE) {
+
 		// ユーザーからの入力イベントを処理
 		glfwPollEvents();
 	}

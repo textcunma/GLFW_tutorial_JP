@@ -6,7 +6,10 @@ Texture::Texture(const char* image,
 				GLuint slot, 
 				GLenum format, 
 				GLenum pixelType)
-{
+{	
+	// テクスチャのファイルパスを保存
+	path = image;
+
 	// テクスチャの種類をクラス全体で利用可能にする
 	type = texType;
 

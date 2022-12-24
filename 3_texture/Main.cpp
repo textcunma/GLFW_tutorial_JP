@@ -57,7 +57,7 @@ int main() {
 	glViewport(0, 0, width, height);
 
 	// シェーダーファイル読み込み
-	Shader shaderProgram("./3_texture/default.vert", "./3_texture/default.frag");
+	Shader shaderProgram("./default.vert", "./default.frag");
 
 	// VAOを作成, 有効化
 	VAO VAO1;

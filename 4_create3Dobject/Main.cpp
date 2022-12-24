@@ -65,7 +65,7 @@ int main() {
 	glViewport(0, 0, width, height);
 
 	// シェーダーファイル読み込み
-	Shader shaderProgram("./4_create3Dobject/default.vert", "./4_create3Dobject/default.frag");
+	Shader shaderProgram("./default.vert", "./default.frag");
 
 	// VAOを作成, 有効化
 	VAO VAO1;
@@ -89,11 +89,8 @@ int main() {
 	VBO1.Unbind();
 	EBO1.Unbind();
 
-	// uniform変数のアクセスするためのメモリ位置を取得
-	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
-
 	// テクスチャ設定
-	Texture Tex("../image/human.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	Texture Tex("../image/container2.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 
 	// テクスチャユニットを配置
 	Tex.texUnit(shaderProgram, "tex0", 0);
@@ -151,9 +148,6 @@ int main() {
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
-
-		// uniform変数(scale)に値を入力
-		glUniform1f(uniID, 0.5f);
 
 		// テクスチャを有効化
 		Tex.Bind();

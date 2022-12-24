@@ -112,3 +112,15 @@ PBRテクスチャは以下からダウンロード
     $I = \frac{\theta - outerCone}{\epsilon}$
 
     <img src="../assets/6_spotlight.jpg" width="300">
+
+### マテリアル
+オブジェクトごとにマテリアルがある。以下の4つで構成される
+
+- Ambient(3要素)
+- Diffuse(3要素)
+- Specular(3要素)
+- Shininess(1要素) = 光沢
+
+各マテリアルはこの要素の値によって変化する。各マテリアルの一覧は以下のURL。<br>
+[マテリアル一覧](http://devernay.free.fr/cours/opengl/materials.html)
+

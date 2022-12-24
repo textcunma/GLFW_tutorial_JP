@@ -42,6 +42,15 @@ public:
 
 	// カメラ操作
 	void Inputs(GLFWwindow* window);
+
+private:
+	double start_mouseX;
+	double start_mouseY;
+	double currentTime;
+	double lastTime;
+
+	void LeftClick(GLFWwindow* window);
+	void MiddleClick(GLFWwindow* window);
 };
 
 #endif

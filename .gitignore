@@ -1,8 +1,9 @@
 # OpenGL
-glad.c
 Libraries
 x64
 .vs
+*.pptx
+output.png
 
 # vscode
 *.vscode
@@ -18,7 +19,6 @@ tutorial.*
 *.slo
 *.lo
 *.o
-*.obj
 
 # Precompiled Headers
 *.gch
@@ -56,5 +56,3 @@ tutorial.*
 
 # Built Visual Studio Code Extensions
 *.vsix
-image/container2_specular.png
-image/container2.png

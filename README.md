@@ -2,7 +2,7 @@
 日本語GLFWチュートリアル
 
 ## 概要
-[Victor Gordan氏によるOpenGLチュートリアル](https://www.youtube.com/playlist?list=PLPaoO-vpZnumdcb4tZc4x5Q-v7CkrQ6M-)を参考にしたGLFWチュートリアル。彼のチュートリアルの12章までの内容を網羅。最終目標は頂点やテクスチャ等を含んだMeshクラスの作成。
+OpenGLライブラリのGLFWのチュートリアル。3DCGに関する知識, 処理について学びます。
 
 ## 環境
 |    |  version  |
@@ -16,19 +16,23 @@ GLFWのインストール、Visual Studioの環境構築はVictor Gordan氏の�
 
 [OpenGL Tutorial 0 - Install](https://youtu.be/XpBGwZNyUh0)
 
-## ファイル構造
-tutorialというプロジェクトを作成した場合。プロジェクト作成時に自動的に作成される「ソース」等のディレクトリは削除。各回のディレクトリからファイルを「**追加→既存の項目**」で読み込む。ただし、「**glad.c**」は忘れないようにしてください。
-
-<img src = "assets/tree.jpg" alt = "ファイル構造"><br>
-例：第2回の場合のファイル構造
-
 ## 内容
+【基礎編】<br>
 1. ウィンドウ生成
 2. 三角形生成
 3. テクスチャ
 4. 3Dオブジェクト生成
 5. カメラ
-5. 光
-6. Meshクラス作成
+6. 光
+7. モデル読み込み
 
+【応用編】<br>
+作る...かも?
 
+## 参考
+- [Victor Gordan氏によるOpenGLチュートリアル](https://www.youtube.com/playlist?list=PLPaoO-vpZnumdcb4tZc4x5Q-v7CkrQ6M-)
+- [LEARN OPENGL](https://learnopengl.com/)
+- [GLFW による OpenGL 入門](https://tokoik.github.io/GLFWdraft.pdf)
+- [opengl-tutorial](http://www.opengl-tutorial.org/jp/)
+- [OpenGL PukiWiki](https://www.slis.tsukuba.ac.jp/~fujisawa.makoto.fu/cgi-bin/wiki/index.php?OpenGL)
+- [床井先生のブログ](https://marina.sys.wakayama-u.ac.jp/~tokoi/?blogcategory=GLFW)

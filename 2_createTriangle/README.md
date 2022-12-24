@@ -12,6 +12,14 @@
 <img src="../assets/2_3dpipe_ver2.png"><br>
 [図引用元](https://marina.sys.wakayama-u.ac.jp/~tokoi/glfw/pipeline5.png)
 
+### 頂点情報
+3DCGモデルは頂点に複数の属性(attribute)を持つ。それは主に以下の4つの情報。ただし、
+頂点色は比較的使用されない。
+- 座標
+- 色
+- 法線
+- テクスチャ座標
+
 ### 頂点シェーダーとフラグメントシェーダー
 
 - シェーダーの役割<br>

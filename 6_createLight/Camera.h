@@ -8,6 +8,7 @@
 #include<glm/gtc/type_ptr.hpp>
 #include<glm/gtx/rotate_vector.hpp>
 #include<glm/gtx/vector_angle.hpp>
+#include<glm/gtx/string_cast.hpp>
 
 #include"shaderClass.h"
 
@@ -17,7 +18,7 @@ public:
 	glm::vec3 Position;
 
 	// カメラの視線ベクトル(正規化済)
-	glm::vec3 Orientation = glm::vec3(0.0f, -1.0f, -1.0f);
+	glm::vec3 Orientation = glm::vec3(0.92f, -0.98f, 0.43f);
 
 	// 上方向(正規化済み)
 	glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);	// y軸が上
@@ -36,12 +37,21 @@ public:
 
 	// 変換行列更新
 	void updateMatrix(float FOVdeg, float nearPlane, float farPlane);
-	
+
 	// 変換行列をuniform変数に代入
 	void Matrix(Shader& shader, const char* uniform);
 
 	// カメラ操作
 	void Inputs(GLFWwindow* window);
+
+private:
+	double start_mouseX;
+	double start_mouseY;
+	double currentTime;
+	double lastTime;
+
+	void LeftClick(GLFWwindow* window);
+	void MiddleClick(GLFWwindow* window);
 };
 
 #endif

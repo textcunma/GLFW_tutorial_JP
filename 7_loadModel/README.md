@@ -11,6 +11,23 @@
 - オブジェクト<br>
 物体を指す。ポリゴンモデルに限らず、ライト、カメラ等もオブジェクトと呼ぶ。
 
+### 画像出力
+stbライブラリを用いて画像出力を行う。
+`stb.cpp`に以下を追加。そして「stb_image_write.h」を
+`Libraries/include/stb/`に追加。
+
+```
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include<stb/stb_image_write.h>
+```
+
+そして, そのまま使用した場合にセキュリティエラーが生じるため
+`stb_image_write.h`の`sprintf関数`を書き換えます。
+
+```
+sprintf() ----->  sprintf_s()
+```
+
 
 ### 3Dデータのファイル形式
 3Dデータの代表的なファイル形式に**obj**, **fbx**, **stl**, **glTF**がある。

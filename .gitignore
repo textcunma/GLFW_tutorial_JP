@@ -4,6 +4,7 @@ x64
 .vs
 *.pptx
 output.png
+tree.txt
 
 # vscode
 *.vscode

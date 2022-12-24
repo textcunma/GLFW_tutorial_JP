@@ -29,6 +29,46 @@ GLFWのインストール、Visual Studioの環境構築はVictor Gordan氏の�
 【応用編】<br>
 作る...かも?
 
+## ファイル構造
+```
+├─1_createWindow
+│                  
+├─2_createTriangle
+│                  
+├─3_texture
+│                  
+├─4_create3Dobject
+│                  
+├─5_camera
+│  
+├─6_createLight
+│                  
+├─7_loadModel
+│                  
+├─assets
+│      
+├─Libraries
+│  ├─include
+│  │  ├─assimp
+│  │  │              
+│  │  ├─glad
+│  │  │      glad.h
+│  │  │      
+│  │  ├─GLFW
+│  │  │      glfw3.h
+│  │  │      glfw3native.h
+│  │  │      
+│  │  ├─glm
+│  │  │      
+│  │  └─stb
+│  │          stb_image.h
+│  │          stb_image_write.h
+│  │          
+│  └─lib
+│          assimp-vc143-mtd.lib
+│          glfw3.lib
+├─image
+```
 ## 参考
 - [Victor Gordan氏によるOpenGLチュートリアル](https://www.youtube.com/playlist?list=PLPaoO-vpZnumdcb4tZc4x5Q-v7CkrQ6M-)
 - [LEARN OPENGL](https://learnopengl.com/)

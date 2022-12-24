@@ -54,6 +54,9 @@ sprintf() ----->  sprintf_s()
 4. buildフォルダ内にある`Assimp.sln`を開き、ソリューションをビルド
 5. buildフォルダ内にある`\build\include\assimp\config.h`を`include`フォルダに,`\build\lib\Debug\assimp-vc143-mtd.lib.h`を`lib`フォルダに格納。ただし、この`include`と`lib`は本フォルダ`GLFW_tutorial_JP\Libraries\`内にあるフォルダを指す。
 
+そして、プロジェクトプロパティの追加の依存ファイルを以下のように指定。
+<img src="../assets/7_lib.jpg">
+
 次に`\build\bin\Debug\assimp-vc143-mtd.dll`を`GLFW_tutorial_JP\x64\Debug\`フォルダ内に`assimp-vc143-mtd.dll`を挿入。
 
 ### モデルの読み込み
